@@ -24,6 +24,7 @@ mongoose.connect(dbURI, {
 }).then(() => {
     console.log('Database connected')
 }).catch(err => {
+    console.log('Could not connect to database')
     console.error(err)
 })
 
