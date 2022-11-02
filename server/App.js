@@ -4,7 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 
-const postRoutes = require('./Routes/routes')
+const routes = require('./Routes/routes')
 
 const app = express()
 
@@ -23,9 +23,11 @@ mongoose.connect(dbURI, {
     useUnifiedTopology: true,
 }).then(() => {
     console.log('Database connected')
+}).catch(err => {
+    console.error(err)
 })
 
-app.use('/posts', postRoutes)
+app.use('/', routes)
 
 // Listening to the server
 app.listen(port, (req, res) => {
