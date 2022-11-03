@@ -1,7 +1,11 @@
 import React from "react";
 
 const UserPosts = () => {
-    return <div>UserPosts</div>;
+    return (
+        <>
+            <h1>UserPosts</h1>
+        </>
+    );
 };
 
 export default UserPosts;
