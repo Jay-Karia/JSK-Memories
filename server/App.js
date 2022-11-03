@@ -4,7 +4,8 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 
-const routes = require('./Routes/routes')
+const postRoutes = require('./Routes/postRoutes')
+const userRoutes = require('./Routes/userRoutes')
 
 const app = express()
 
@@ -28,7 +29,8 @@ mongoose.connect(dbURI, {
     console.error(err)
 })
 
-app.use('/', routes)
+app.use('/', postRoutes)
+app.use('/', userRoutes)
 
 // Listening to the server
 app.listen(port, (req, res) => {
