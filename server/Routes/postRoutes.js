@@ -74,25 +74,25 @@ router.get('/getPost/:id', async(req, res) => {
 // localhost:8000/deletePost/id
 router.delete('/deletePost/:id', async(req, res) => {
     let id = req.params.id
-        // try {
-    const existingPost = await Post.findById(id).populate('user')
-    const user = await User.findById(existingPost.user)
+    try {
+        const existingPost = await Post.findById(id).populate('user')
+        const user = await User.findById(existingPost.user)
 
-    for (let i = 0; i < user.posts.length; i++) {
-        if (existingPost._id.toString() === user.posts[i]) {
-            await user.posts.splice(i, 1)
-            await user.save()
+        for (let i = 0; i < user.posts.length; i++) {
+            if (existingPost._id.toString() === user.posts[i]) {
+                await user.posts.splice(i, 1)
+                await user.save()
+            }
         }
-    }
 
-    const post_ = await Post.findByIdAndDelete(id)
+        const post_ = await Post.findByIdAndDelete(id)
 
-    if (existingPost.length === 0) {
-        if (!existingPost) return res.status(400).json({ msg: 'Could not find post' })
+        if (existingPost.length === 0) {
+            if (!existingPost) return res.status(400).json({ msg: 'Could not find post' })
+        }
+    } catch (err) {
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
     }
-    // } catch (err) {
-    //     return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
-    // }
 
     return res.status(200).json({ msg: 'Post Successfully deleted' })
 })
