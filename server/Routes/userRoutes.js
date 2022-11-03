@@ -59,4 +59,18 @@ router.post('/login', async(req, res) => {
     }
 })
 
+// localhost:host:8000/getUser/id
+router.get('/getUser/:id', async(req, res) => {
+    let user;
+    try {
+        user = await User.findById(req.params.id)
+    } catch (err) {
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+    }
+    if (user.length !== 0) {
+        return res.status(200).json({ user: user })
+    }
+    return res.status(400).json({ msg: 'No users found' })
+})
+
 module.exports = router;
