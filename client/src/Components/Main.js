@@ -13,14 +13,16 @@ const Main = () => {
                 <Typography variant="h2">Welcome to JSK <span style={{color:'green'}}>Memories</span></Typography>
                 <Typography variant="h6">- developed by Jay Sanjay Karia</Typography>
             </Box>
-            <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'100px'}}>
-              <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit'  >
-                  <Tab LinkComponent={Link} to="/posts" label="All Posts"></Tab>
-                  <Tab LinkComponent={Link} to='/myPosts' label="My Posts"></Tab>
-              </Tabs>
-            </Box>
-            <Container sx={{position:'absolute', right:'20px', width:'25rem', height:'30rem', display:'flex', justifyContent:'center', border:'2px solid black', borderRadius:'9px'}} marginRight='auto'>
-              <AddPost/>
+            <Container>
+              <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'100px'}}>
+                <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit'  >
+                    <Tab LinkComponent={Link} to="/posts" label="All Posts"></Tab>
+                    <Tab LinkComponent={Link} to='/myPosts' label="My Posts"></Tab>
+                </Tabs>
+              </Box>
+            </Container>
+            <Container sx={{position:'absolute', right:'20px', marginTop:'100px', width:'25rem', height:'30rem', display:'flex', justifyContent:'center', border:'2px solid black', borderRadius:'9px'}} marginRight='auto' className='addContainer'>
+            <AddPost/>
             </Container>
         </Container>
     </>

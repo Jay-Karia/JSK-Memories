@@ -15,6 +15,7 @@ function App() {
     const [value, setValue] = useState(0)
     return (
         <>
+        <main>
             <Header/>
             <Main/>
             <Routes>
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
                 <Route path="/posts/add" element={<AddPost/>}></Route>
             </Routes>
+        </main>
         </>
     );
 }

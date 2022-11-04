@@ -1,6 +1,16 @@
 * {
     margin: 0;
-    padding: 0
+    padding: 0;
+}
+
+.addContainer {
+    /* background-image: url('./Components/back.jpg'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    width: 100%;
+    background-blend-mode: darken;
 }
 
 .selectLabel {
