@@ -1,5 +1,5 @@
 import "./App.css";
-import React from 'react'
+import React, {useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
 
 import Header from "./Components/Header";
@@ -8,14 +8,15 @@ import Posts from './Components/Posts'
 import UserPosts from './Components/UserPosts'
 import PostDetail from './Components/PostDetail'
 import AddPost from './Components/AddPost'
+import Main from './Components/Main'
+
 
 function App() {
+    const [value, setValue] = useState(0)
     return (
-        <React.Fragment>
-        <header>
-            <Header></Header>
-        </header>
-        <main>
+        <>
+            <Header/>
+            <Main/>
             <Routes>
                 <Route path="/auth" element={<Auth/>}></Route>
                 <Route path="/posts" element={<Posts/>}></Route>
@@ -23,8 +24,7 @@ function App() {
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
                 <Route path="/posts/add" element={<AddPost/>}></Route>
             </Routes>
-        </main>
-        </React.Fragment>
+        </>
     );
 }
 
