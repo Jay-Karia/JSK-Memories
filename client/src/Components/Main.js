@@ -11,7 +11,7 @@ const Main = () => {
         <Container sx={{marginTop: '100px'}}>
             <Box marginLeft="auto" marginRight="auto" align='center'>
                 <Typography variant="h2">Welcome to JSK <span style={{color:'green'}}>Memories</span></Typography>
-                <Typography variant="h6">- developed by Jay Sanjay Karia</Typography>
+                <Typography variant="h6" ><span style={{color:'grey'}}>- developed by Jay Sanjay Karia</span></Typography>
             </Box>
             <Container>
               <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'100px'}}>
