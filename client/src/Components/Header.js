@@ -13,7 +13,7 @@ const Header = () => {
                     <Box display="flex" marginLeft="auto">
                         <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: "grey"}}>Login</Button>
                         <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: "grey"}}>Register</Button>
-                        <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: Colors.blue[600]}}>Logout</Button>
+                        <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: Colors.green[600]}}>Logout</Button>
                     </Box>
 
                 </Toolbar>

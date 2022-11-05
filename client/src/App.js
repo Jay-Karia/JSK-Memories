@@ -23,7 +23,7 @@ function App() {
                 <Route path="/posts" element={<Posts/>}></Route>
                 <Route path="/myPosts" element={<UserPosts/>}></Route>
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
-                <Route path="/posts/add" element={<AddPost/>}></Route>
+                <Route path="/addPost" element={<AddPost/>}></Route>
             </Routes>
         </main>
         </>
