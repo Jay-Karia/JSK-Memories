@@ -10,13 +10,15 @@ router.get('/getAllPosts', async(req, res) => {
     let posts;
     try {
         posts = await Post.find()
+        // return res.status(200).json({ yourPosts: posts })
     } catch (err) {
         return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
     }
     if (posts.length !== 0) {
         return res.status(200).json({ posts: posts })
+    } else {
+        return res.status(400).json({ msg: 'No posts found' })
     }
-    return res.status(400).json({ msg: 'No posts found' })
 })
 
 // localhost:8000/addPost
