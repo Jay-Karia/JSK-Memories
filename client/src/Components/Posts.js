@@ -3,14 +3,25 @@ import { Typography, Box, Container, Card, CardContent, CardHeader, CardMedia, C
 
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
+import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
 
 import * as Colors from '@mui/material/colors'
 
-import secondary_bg from './images/secondary_forest_bg.jpg'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// Forest Theme
+import secondary_bg from './images/forest/secondary_forest_bg.jpg'
+
+// Underwater Theme
+import secondary_water_bg from './images/underwater/secondary_ocean.png'
+
+// Halloween Theme
+import secondary_halloween from './images/halloween/secondary_halloween_bg.jpg'
+import grave from './images/halloween/grave.jpg'
+
 import back from './images/all.jpg'
 
-const Posts = () => {
+const Posts = (props) => {
     const [posts, setPost] = useState(null)
     const [users, setUsers] = useState(null)
     let users2 = []
@@ -53,41 +64,86 @@ const Posts = () => {
         isMounted=  false
       }
     })
+
+    const forest = createTheme({
+        palette: {
+          primary: {
+            main: Colors.green[300]
+          }
+        }
+    })
+
+    const underwater = createTheme({
+        palette: {
+            primary: {
+                main: Colors.blue[300]
+            }
+        }
+      })
+
+      const halloween = createTheme({
+        palette: {
+            primary: {
+                main: Colors.purple[600]
+            }
+        }
+    })
+
+    const dark = createTheme({
+        palette: {
+            primary: {
+                main: Colors.yellow[600]
+            }
+        }
+      })
+  
+      const light = createTheme({
+        palette: {
+          primary: {
+            main: Colors.blueGrey[600]
+          }
+        }
+      })
+
+    const themeColor = light.palette.primary.main
     
     return (
         <>
-        <Container sx={{backgroundImage:`url(${secondary_bg})`,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center center', borderRadius:'20px', boxShadow:'3px 3px 2px 3px grey'}}>
-            <Box sx={{border:'1px solid black', borderRadius:'9px', marginTop:'50px', background:'white'}}>
-                <h1 align='center'>All Posts</h1>
-            </Box>
-            <Container className='allPostsContainer' sx={{padding:'20px'}}>
-                <Box>
-                    <Card sx={{ maxWidth: 345, borderRadius:'10px', boxShadow:'3px 3px 2px 3px'+Colors.green[300]}}>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image={back}
-                            alt="green iguana"
-                        />
-                    <CardHeader title="By: Sanjay" subheader="On: 11/4/2022" sx={{color:'green'}}/>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                            {/* {posts[0].title} */}
-                            Shimla Trip
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                            {/* {posts[0].description} */}
-                            Best ever Shimla Trip
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small" sx={{color:'green'}} endIcon={<ThumbUpOffAltOutlinedIcon/>}>0 Like</Button>
-                            <Button size="small" sx={{color:'red'}} endIcon={<DeleteRoundedIcon/>}>Delete</Button>
-                        </CardActions>
-                    </Card>
-                </Box>
-            </Container>
-        </Container>
+            <ThemeProvider theme={light}>
+                <Container sx={{background:'white', borderRadius:'20px', boxShadow:'3px 3px 2px 3px grey', marginBottom:'20px'}}>
+                    <Box sx={{border:'1px solid black', borderRadius:'9px', marginTop:'50px', background:'white'}}>
+                        <h1 align='center'>All Posts</h1>
+                    </Box>
+                    <Container className='allPostsContainer' sx={{padding:'20px'}}>
+                        <Box>
+                        <Card sx={{ maxWidth: 345, borderRadius:'10px', '&:hover': {boxShadow:'0 0 3px 3px '+themeColor}, boxShadow:'2px 2px 1px 2px grey'}}>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={back}
+                                    alt="green iguana"
+                                />
+                            <CardHeader title="By: Sanjay" subheader="On: 11/4/2022"/>
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    {/* {posts[0].title} */}
+                                    Shimla Trip
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    {/* {posts[0].description} */}
+                                    Best ever Shimla Trip
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <label htmlFor="likes" style={{fontSize:'1.4rem', marginLeft:'5px', marginBottom:'5px'}}>0</label>
+                                    <Button endIcon={<ThumbUpOffAltRoundedIcon/>} size="large" sx={{marginLeft:'10px',color:'green'}} >Like</Button>
+                                    <Button endIcon={<DeleteRoundedIcon/>} size="large" sx={{color:'red'}}>Delete </Button>
+                                </CardActions>
+                            </Card>
+                        </Box>
+                    </Container>
+                </Container>
+            </ThemeProvider>
         </>
     );
 };

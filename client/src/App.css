@@ -4,11 +4,11 @@
 }
 
 html {
-    background-image: url('./Components//images/forest_bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     height: 100vh;
+    background-attachment: fixed;
 }
 
 .addContainer {
