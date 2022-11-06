@@ -4,49 +4,11 @@ import { AppBar, Toolbar, Typography, Box, Button, Tabs, Tab } from "@mui/materi
 import * as Colors from '@mui/material/colors'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const Header = () => {
-    const forest = createTheme({
-        palette: {
-          primary: {
-            main: Colors.green[600]
-          }
-        }
-      })
-
-    const underwater = createTheme({
-        palette: {
-            primary: {
-                main: Colors.blue[600]
-            }
-        }
-    })
-
-    const halloween = createTheme({
-        palette: {
-            primary: {
-                main: Colors.purple[600]
-            }
-        }
-    })
-
-    const dark = createTheme({
-        palette: {
-            primary: {
-                main: Colors.yellow[600]
-            }
-        }
-    })
-
-    const light = createTheme({
-        palette: {
-          primary: {
-            main: Colors.blueGrey[600]
-          }
-        }
-      })
+const Header = (props) => {
+    console.log(props.theme)
     return (
         <>
-            <ThemeProvider theme={dark}>
+            <ThemeProvider theme={props.theme}>
                 <AppBar sx={{ bgcolor: "black" }}>
                     <Toolbar>
                         <Typography variant="h5">JSK Memories</Typography>

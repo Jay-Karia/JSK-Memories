@@ -16,7 +16,6 @@ function App() {
     return (
         <>
         <main>
-            <Header/>
             <Main/>
             <Routes>
                 <Route path="/auth" element={<Auth/>}></Route>

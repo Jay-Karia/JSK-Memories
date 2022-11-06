@@ -3,15 +3,15 @@ import { AppBar, Toolbar, Typography, Box, Button, Tabs, Tab, Container, ButtonG
 import {Link} from 'react-router-dom'
 import '@fontsource/roboto/400.css';
 import * as Colors from '@mui/material/colors'
+import Header from "./Header";
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import ForestIcon from '@mui/icons-material/Forest';
 import SailingIcon from '@mui/icons-material/Sailing';
-import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
-import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CastleIcon from '@mui/icons-material/Castle';
-import NightsStayRoundedIcon from '@mui/icons-material/NightsStayRounded';
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 
 
 // Forest Theme
@@ -29,6 +29,8 @@ import halloween_bg from './images/halloween/halloween_bg.jpg'
 // Dark Theme / Light Theme
 import dark_button from './images/dark_btn.jpg'
 import dark_bg from './images/dark.jpg'
+import light_button from './images/light_button.jpg'
+import light_bg from './images/light.jpg'
 
 const Main = () => {
     const forest = createTheme({
@@ -87,6 +89,10 @@ const Main = () => {
         const elem = document.getElementById('h')
         elem.style.backgroundImage = `url(${dark_bg})`
         document.getElementsByClassName('container')[0].style.color = 'white'
+
+        document.getElementsByClassName('light_theme')[0].style.display = 'block'
+        document.getElementsByClassName('dark_theme')[0].style.display = 'none'
+
       }else if (theme === 'halloween') {
         setTheme(halloween)
         const elem = document.getElementById('h')
@@ -97,10 +103,19 @@ const Main = () => {
         const elem = document.getElementById('h')
         elem.style.backgroundImage = `url(${underwater_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
+      } else if (theme === 'light') {
+        setTheme(light)
+        const elem = document.getElementById('h')
+        elem.style.backgroundImage = `url(${light_bg})`
+        document.getElementsByClassName('container')[0].style.color = 'black'
+
+        document.getElementsByClassName('light_theme')[0].style.display = 'none'
+        document.getElementsByClassName('dark_theme')[0].style.display = 'block'
       }
     }
   return (
     <>
+      <Header theme={theme}/>
       <ThemeProvider theme={theme}>
           <Container className='container' sx={{marginTop: '100px', color:fontColor}}>
               <Box marginLeft="auto" marginRight="auto" align='center'>
@@ -116,7 +131,8 @@ const Main = () => {
                     <Button variant="outlined" onClick={()=> {changeTheme('forest')}} endIcon={<ForestIcon/>} className="themeButtons" sx={{marginBottom:"10px", color:'green',fontWeight:"bold", 'fontSize':'1rem', padding:'15px', 'borderRadius':'50px', background:`url(${forest_button})`, boxShadow:'3px 3px 2px 3px grey', width:'14rem'}}>Forest Theme</Button>
                     <Button variant="outlined" onClick={()=> {changeTheme('underwater')}} endIcon={<SailingIcon/>} className="themeButtons" sx={{marginBottom:"10px", color:Colors.blue[300],fontWeight:"bold", 'fontSize':'1rem', padding:'15px', 'borderRadius':'50px', background:`url(${underwater_button})`, boxShadow:'3px 3px 2px 3px grey', width:'14rem', marginLeft:'40px'}}>UnderWater Theme</Button>
                     <Button variant="outlined" onClick={()=> {changeTheme('halloween')}} endIcon={<CastleIcon/>} className="themeButtons" sx={{marginBottom:"10px", color:"white",fontWeight:"bold", 'fontSize':'1rem', padding:'15px', 'borderRadius':'50px', background:`url(${pumpkin_button})`, boxShadow:'3px 3px 2px 3px grey', width:'14rem', marginLeft:'40px'}}>Halloween Theme</Button>
-                    <Button onClick={()=> {changeTheme('dark')}} sx={{color:'white', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${dark_button})`, boxShadow:'3px 3px 2px 3px grey'}} variant='outlined' endIcon={<NightsStayRoundedIcon/>}>Dark Theme</Button>
+                    <Button className="dark_theme" onClick={()=> {changeTheme('dark')}} sx={{color:'white', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${dark_button})`, boxShadow:'3px 3px 2px 3px grey'}} variant='outlined'>Dark Theme</Button>
+                    <Button onClick={()=> {changeTheme('light')}} className="light_theme" sx={{color:'black', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${light_button})`, boxShadow:'3px 3px 2px 3px grey', display:'none'}} variant='outlined'>Light Theme</Button>
                 </Box>
               <Container>
                 <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'50px'}}>
