@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Box, TextField, Container, Button} from '@mui/material'
 
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -20,8 +22,69 @@ const AddPost = () => {
     const handleChange = (newValue) => {
       setValue(newValue);
     };
+
+    const forest = createTheme({
+        palette: {
+          primary: {
+            main: Colors.green[100]
+          }
+        }
+      })
+  
+      const underwater = createTheme({
+        palette: {
+            primary: {
+                main: Colors.blue[100]
+            }
+        }
+      })
+      const halloween = createTheme({
+        palette: {
+            primary: {
+                main: Colors.purple[100]
+            }
+        }
+      })
+  
+      const dark = createTheme({
+        palette: {
+            primary: {
+                main: Colors.yellow[100]
+            }
+        }
+      })
+  
+      const light = createTheme({
+        palette: {
+          primary: {
+            main: Colors.blueGrey[100]
+          }
+        }
+      })
+
+      const localTheme = localStorage.getItem('theme')
+      const [theme, setTheme] = useState(localTheme)
+      
+
+      useEffect(() => {
+          if (localTheme==='forest') {
+            setTheme(forest)
+          } else if (localTheme === 'dark') {
+            setTheme(dark)
+          }else if (localTheme === 'halloween') {
+            setTheme(halloween)
+          }else if (localTheme === 'underwater') {
+            setTheme(underwater)
+          } else if (localTheme === 'light') {
+            setTheme(light)
+          }
+      })
+
+    //   console.log(theme);
+
     return (
         <>
+            {/* <ThemeProvider theme={{theme}}> */}
                 <Container className="addContainer" align='center' sx={{border:'2px solid black', marginTop:'30px', border:'2px solid black', borderRadius:'14px', alignItems:"center", background:'white', width:'30rem', marginBottom:'20px', '&:hover': { boxShadow:'1px 10px 20px 3px grey'}, transition:'all .3s ease-in'}}>
                 <div style={{border:'2px solid white', marginTop:"20px", marginBottom:'20px', backgroundColor:"white", borderRadius:'14px'}}>
                     <div style={{display:'flex', justifyContent:'center'}}>
@@ -54,6 +117,7 @@ const AddPost = () => {
                     </Box>
                 </div>
                 </Container>
+            {/* </ThemeProvider> */}
         </>
         
     )

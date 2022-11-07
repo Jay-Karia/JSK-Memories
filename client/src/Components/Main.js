@@ -18,6 +18,7 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import forest_button from './images/forest/forest_button.jpg'
 import forest_bg from './images/forest/forest.jpg'
 
+
 // Underwater Theme
 import underwater_button from './images/underwater/underwater_btn.jpg'
 import underwater_bg from './images/underwater/underwater_bg.jpg'
@@ -102,9 +103,6 @@ const Main = () => {
         btn_color = Colors.yellow[900]
         field_color = Colors.grey[600]
 
-        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.yellow[900]
-        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.yellow[900]
-
       }else if (theme === 'halloween') {
         setTheme(halloween)
         const elem = document.getElementById('h')
@@ -113,8 +111,6 @@ const Main = () => {
         btn_color = Colors.purple[900]
         field_color = Colors.purple[100]
 
-        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.purple[900]
-        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.purple[900]
       }else if (theme === 'underwater') {
         setTheme(underwater)
         const elem = document.getElementById('h')
@@ -123,8 +119,6 @@ const Main = () => {
         btn_color = Colors.blue[900]
         field_color = Colors.blue[100]
 
-        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.blue[900]
-        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.blue[900]
       } else if (theme === 'light') {
         setTheme(light)
         const elem = document.getElementById('h')
@@ -137,14 +131,13 @@ const Main = () => {
         btn_color = Colors.blueGrey[900]
         field_color = Colors.blueGrey[100]
 
-        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.blueGrey[900]
-        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.blueGrey[900]
       }
 
       document.getElementsByClassName('btn')[0].style.backgroundColor=btn_color
       document.getElementsByClassName('btn')[1].style.backgroundColor=btn_color
 
       document.getElementsByClassName('addContainer')[0].style.backgroundColor = field_color
+      // document.getElementsByClassName('addContainer')[1].style.backgroundColor = field_color
     }
   return (
     <>
@@ -168,10 +161,10 @@ const Main = () => {
                     <Button onClick={()=> {changeTheme('light')}} className="light_theme" sx={{color:'black', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${light_button})`, boxShadow:'3px 3px 2px 3px grey', display:'none'}} variant='outlined'>Light Theme</Button>
                 </Box>
               <Container>
-                <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'50px'}}>
-                  <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit'  >
-                      <Tab LinkComponent={Link} to="/posts" label="All Posts"></Tab>
-                      <Tab LinkComponent={Link} to='/myPosts' label="My Posts"></Tab>
+                <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'50px', borderRadius:'20px'}}>
+                  <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit' sx={{padding:"10px", borderRadius:'20px', border:"2px solid black", background:Colors.green[100]}}>
+                      <Tab LinkComponent={Link} sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white"}} to="/posts" label="All Posts"></Tab>
+                      <Tab LinkComponent={Link} sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white", marginLeft:"20px"}} to='/myPosts' label="My Posts"></Tab>
                   </Tabs>
                 </Box>
               </Container>

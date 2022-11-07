@@ -5,7 +5,7 @@ import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 
-import secondary_bg from './images/forest/secondary_forest_bg.jpg'
+import secondary_bg from './images/forest/forest_bg.jpg'
 import back from './images/my.jpg'
 
 
