@@ -58,7 +58,7 @@ const Posts = (props) => {
     useEffect(() => {
         let isMounted = true;   
         if (isMounted) {
-            getAllPosts()
+            // getAllPosts()
         }
       return () => {
         isMounted=  false
@@ -105,13 +105,15 @@ const Posts = (props) => {
         }
       })
 
-    const themeColor = light.palette.primary.main
+    const themeColor = forest.palette.primary.main
     
     return (
         <>
-            <ThemeProvider theme={light}>
-                <Container sx={{background:'white', borderRadius:'20px', boxShadow:'3px 3px 2px 3px grey', marginBottom:'20px'}}>
-                    <Box sx={{border:'1px solid black', borderRadius:'9px', marginTop:'50px', background:'white'}}>
+            {/* <ThemeProvider theme={light}> */}
+                <Container sx={{background:'white', borderRadius:'20px', boxShadow:'3px 3px 2px 3px grey', marginBottom:'20px', width:'100vw', marginLeft:'200px', maxWidth:'100vw', width:'80vw', marginTop:'50px', '@media (min-width: 1200px).css-hu2re8-MuiContainer-root': {
+                    maxWidth:'100vw'
+                }}}>
+                    <Box sx={{border:'1px solid black', borderRadius:'9px', marginTop:'20px', background:'white'}}>
                         <h1 align='center'>All Posts</h1>
                     </Box>
                     <Container className='allPostsContainer' sx={{padding:'20px'}}>
@@ -143,7 +145,7 @@ const Posts = (props) => {
                         </Box>
                     </Container>
                 </Container>
-            </ThemeProvider>
+            {/* </ThemeProvider> */}
         </>
     );
 };

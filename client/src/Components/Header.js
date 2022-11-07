@@ -5,7 +5,6 @@ import * as Colors from '@mui/material/colors'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const Header = (props) => {
-    console.log(props.theme)
     return (
         <>
             <ThemeProvider theme={props.theme}>

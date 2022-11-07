@@ -16,7 +16,7 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 
 // Forest Theme
 import forest_button from './images/forest/forest_button.jpg'
-import forest_bg from './images/forest/forest_bg.jpg'
+import forest_bg from './images/forest/forest.jpg'
 
 // Underwater Theme
 import underwater_button from './images/underwater/underwater_btn.jpg'
@@ -71,7 +71,7 @@ const Main = () => {
         }
       }
     })
-    let localTheme = localStorage.getItem('theme') 
+    let localTheme = localStorage.getItem('theme')
     if (!localTheme) localTheme = 'light' 
     const [theme, setTheme] = useState(light)
     const [value, setValue] = useState(0)
@@ -79,11 +79,17 @@ const Main = () => {
     const fontColor = ''
 
     const changeTheme = (theme)=> {
+      localStorage.setItem('theme', theme)
+      let btn_color =''
+      let field_color =''
       if (theme==='forest') {
         setTheme(forest)
-        const elem = document.getElementById('h')
-        elem.style.backgroundImage = `url(${forest_bg})`
+        document.getElementById('h').style.backgroundImage = `url(${forest_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
+
+        btn_color = Colors.green[900]
+        field_color = Colors.green[100]
+
       } else if (theme === 'dark') {
         setTheme(dark)
         const elem = document.getElementById('h')
@@ -93,16 +99,32 @@ const Main = () => {
         document.getElementsByClassName('light_theme')[0].style.display = 'block'
         document.getElementsByClassName('dark_theme')[0].style.display = 'none'
 
+        btn_color = Colors.yellow[900]
+        field_color = Colors.grey[600]
+
+        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.yellow[900]
+        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.yellow[900]
+
       }else if (theme === 'halloween') {
         setTheme(halloween)
         const elem = document.getElementById('h')
         elem.style.backgroundImage = `url(${halloween_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
+        btn_color = Colors.purple[900]
+        field_color = Colors.purple[100]
+
+        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.purple[900]
+        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.purple[900]
       }else if (theme === 'underwater') {
         setTheme(underwater)
         const elem = document.getElementById('h')
         elem.style.backgroundImage = `url(${underwater_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
+        btn_color = Colors.blue[900]
+        field_color = Colors.blue[100]
+
+        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.blue[900]
+        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.blue[900]
       } else if (theme === 'light') {
         setTheme(light)
         const elem = document.getElementById('h')
@@ -111,7 +133,18 @@ const Main = () => {
 
         document.getElementsByClassName('light_theme')[0].style.display = 'none'
         document.getElementsByClassName('dark_theme')[0].style.display = 'block'
+
+        btn_color = Colors.blueGrey[900]
+        field_color = Colors.blueGrey[100]
+
+        // document.getElementsByClassName('btn')[0].style.backgroundColor=Colors.blueGrey[900]
+        // document.getElementsByClassName('btn')[1].style.backgroundColor=Colors.blueGrey[900]
       }
+
+      document.getElementsByClassName('btn')[0].style.backgroundColor=btn_color
+      document.getElementsByClassName('btn')[1].style.backgroundColor=btn_color
+
+      document.getElementsByClassName('addContainer')[0].style.backgroundColor = field_color
     }
   return (
     <>
