@@ -41,6 +41,12 @@ import dark_bg from './Components/images/dark.jpg'
 import light_button from './Components/images/light_button.jpg'
 import light_bg from './Components/images/light.jpg'
 
+import secondary_forest from './Components/images/forest/forest_bg.jpg'
+import secondary_underwater from './Components/images/underwater/secondary_water.jpg'
+import secondary_halloween from './Components/images/halloween/s_halloween.jpg'
+import secondary_dark from './Components/images/s_dark.jpg'
+import secondary_light from './Components/images/s_light.jpg'
+
 
 
 function App() {
@@ -107,11 +113,15 @@ function App() {
         setTheme(forest)
         document.getElementById('h').style.backgroundImage = `url(${forest_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
+        document.getElementById('postsContainer').style.backgroundImage = `url(${secondary_forest})`
   
       } else if (theme === 'dark') {
         setTheme(dark)
-        const elem = document.getElementById('h')
-        elem.style.backgroundImage = `url(${dark_bg})`
+
+        document.getElementById('h').style.backgroundImage = `url(${dark_bg})`
+        document.getElementById('postsContainer').style.backgroundImage = `url(${secondary_dark})`
+
+
         document.getElementsByClassName('container')[0].style.color = 'white'
   
         document.getElementsByClassName('light_theme')[0].style.display = 'block'
@@ -119,18 +129,24 @@ function App() {
   
       }else if (theme === 'halloween') {
         setTheme(halloween)
-        const elem = document.getElementById('h')
-        elem.style.backgroundImage = `url(${halloween_bg})`
+
+        const elem = document.getElementById('h').style.backgroundImage = `url(${halloween_bg})`
+        document.getElementById('postsContainer').style.backgroundImage = `url(${secondary_halloween})`
+
         document.getElementsByClassName('container')[0].style.color = 'black'
       }else if (theme === 'underwater') {
         setTheme(underwater)
-        const elem = document.getElementById('h')
-        elem.style.backgroundImage = `url(${underwater_bg2})`
+
+        const elem = document.getElementById('h').style.backgroundImage = `url(${underwater_bg2})`
+        document.getElementById('postsContainer').style.backgroundImage = `url(${secondary_underwater})`
+
         document.getElementsByClassName('container')[0].style.color = 'black'
       } else if (theme === 'light') {
         setTheme(light)
-        const elem = document.getElementById('h')
-        elem.style.backgroundImage = `url(${light_bg})`
+
+        const elem = document.getElementById('h').style.backgroundImage = `url(${light_bg})`
+        document.getElementById('postsContainer').style.backgroundImage = `url(${secondary_light})`
+
         document.getElementsByClassName('container')[0].style.color = 'black'
   
         document.getElementsByClassName('light_theme')[0].style.display = 'none'

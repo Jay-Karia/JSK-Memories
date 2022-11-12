@@ -64,7 +64,7 @@ const Posts = (props) => {
     return (
         <>
             <ThemeProvider theme={props.theme}>
-                <Container maxWidth={false} minWidth={false} className='addContainer' sx={{backgroundImage:`url(${secondary_light})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
+                <Container maxWidth={false} minWidth={false} id='postsContainer' sx={{backgroundImage:`url(${secondary_light})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
                     <Box sx={{border:'1px solid black', borderRadius:'9px', background:'white'}}>
                         <h1 align='center'>All Posts</h1>
                     </Box>
