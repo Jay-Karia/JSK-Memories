@@ -4,16 +4,14 @@ import { Typography, Box, Container, Card, CardContent, CardHeader, CardMedia, C
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
-
-import secondary_bg from './images/forest/forest_bg.jpg'
 import back from './images/my.jpg'
 
 
 const UserPosts = () => {
     return (
         <>
-            <Container sx={{backgroundImage:`url(${secondary_bg})`,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center center', borderRadius:'20px'}}>
-            <Box sx={{border:'1px solid black', borderRadius:'9px', marginTop:'50px'}}>
+            <Container sx={{backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center center', borderRadius:'20px'}}>
+            <Box sx={{border:'1px solid black', borderRadius:'9px', marginTop:'50px', background:"white"}}>
                 <h1 align='center'>My Posts</h1>
             </Box>
             <Container className='allPostsContainer' sx={{padding:'20px'}}>

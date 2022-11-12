@@ -5,6 +5,10 @@ import '@fontsource/roboto/400.css';
 import * as Colors from '@mui/material/colors'
 import Header from "./Header";
 
+import Posts from './Posts'
+import UserPosts from './UserPosts'
+import AddPost from './AddPost'
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import ForestIcon from '@mui/icons-material/Forest';
@@ -27,6 +31,7 @@ import underwater_bg from './images/underwater/underwater_bg.jpg'
 import pumpkin_button from './images/halloween/pumkin_button.jpg'
 import halloween_bg from './images/halloween/halloween_bg.jpg'
 
+
 // Dark Theme / Light Theme
 import dark_button from './images/dark_btn.jpg'
 import dark_bg from './images/dark.jpg'
@@ -37,7 +42,10 @@ const Main = () => {
     const forest = createTheme({
       palette: {
         primary: {
-          main: Colors.green[400]
+          main: Colors.green[400], // for register button and header font color
+        },
+        secondary: {
+          main: Colors.green[900] // for add post buttons
         }
       }
     })
@@ -46,6 +54,8 @@ const Main = () => {
       palette: {
           primary: {
               main: Colors.blue[400]
+          }, secondary: {
+            main: Colors.blue[900]
           }
       }
     })
@@ -53,6 +63,8 @@ const Main = () => {
       palette: {
           primary: {
               main: Colors.purple[400]
+          }, secondary: {
+            main: Colors.purple[900]
           }
       }
     })
@@ -60,7 +72,9 @@ const Main = () => {
     const dark = createTheme({
       palette: {
           primary: {
-              main: Colors.yellow[400]
+              main: Colors.yellow[400],
+          }, secondary: {
+            main: Colors.yellow[900]
           }
       }
     })
@@ -68,7 +82,9 @@ const Main = () => {
     const light = createTheme({
       palette: {
         primary: {
-          main: Colors.blueGrey[400]
+          main: Colors.blueGrey[400],
+        }, secondary: {
+          main: Colors.blueGrey[900]
         }
       }
     })
@@ -88,9 +104,6 @@ const Main = () => {
         document.getElementById('h').style.backgroundImage = `url(${forest_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
 
-        btn_color = Colors.green[900]
-        field_color = Colors.green[100]
-
       } else if (theme === 'dark') {
         setTheme(dark)
         const elem = document.getElementById('h')
@@ -100,25 +113,16 @@ const Main = () => {
         document.getElementsByClassName('light_theme')[0].style.display = 'block'
         document.getElementsByClassName('dark_theme')[0].style.display = 'none'
 
-        btn_color = Colors.yellow[900]
-        field_color = Colors.grey[600]
-
       }else if (theme === 'halloween') {
         setTheme(halloween)
         const elem = document.getElementById('h')
         elem.style.backgroundImage = `url(${halloween_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
-        btn_color = Colors.purple[900]
-        field_color = Colors.purple[100]
-
       }else if (theme === 'underwater') {
         setTheme(underwater)
         const elem = document.getElementById('h')
         elem.style.backgroundImage = `url(${underwater_bg})`
         document.getElementsByClassName('container')[0].style.color = 'black'
-        btn_color = Colors.blue[900]
-        field_color = Colors.blue[100]
-
       } else if (theme === 'light') {
         setTheme(light)
         const elem = document.getElementById('h')
@@ -128,17 +132,21 @@ const Main = () => {
         document.getElementsByClassName('light_theme')[0].style.display = 'none'
         document.getElementsByClassName('dark_theme')[0].style.display = 'block'
 
-        btn_color = Colors.blueGrey[900]
-        field_color = Colors.blueGrey[100]
-
       }
-
-      document.getElementsByClassName('btn')[0].style.backgroundColor=btn_color
-      document.getElementsByClassName('btn')[1].style.backgroundColor=btn_color
-
-      document.getElementsByClassName('addContainer')[0].style.backgroundColor = field_color
-      // document.getElementsByClassName('addContainer')[1].style.backgroundColor = field_color
     }
+
+    const [post, setPost] = useState('all')
+
+    function changePost(post) {
+        setPost(post)
+    }
+
+    const [collapse, setCollapse] = useState(true)
+    function toggle() {
+      if (collapse) setCollapse(false)
+      else setCollapse(true)
+    }
+
   return (
     <>
       <Header theme={theme}/>
@@ -150,8 +158,10 @@ const Main = () => {
               </Box>
               <br /><br /><br />
                 <Container sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                <Button variant="contained" color='primary' LinkComponent={Link} to='/addPost' sx={{borderRadius:'50px', fontSize:'1rem', color:'black'}}><span>Create a new Post</span></Button>
+                <Button onClick={()=>{toggle()}} variant="contained" color='primary' sx={{borderRadius:'50px', fontSize:'1rem', color:'black'}}><span>Create a new Post</span></Button>
                 </Container>
+
+                {collapse? '': <AddPost theme={theme}/>}
 
                 <Box sx={{justifyContent:'center', alignItems:"center", display:'flex', marginTop:'70px'}}>
                     <Button variant="outlined" onClick={()=> {changeTheme('forest')}} endIcon={<ForestIcon/>} className="themeButtons" sx={{marginBottom:"10px", color:'green',fontWeight:"bold", 'fontSize':'1rem', padding:'15px', 'borderRadius':'50px', background:`url(${forest_button})`, boxShadow:'3px 3px 2px 3px grey', width:'14rem'}}>Forest Theme</Button>
@@ -161,14 +171,15 @@ const Main = () => {
                     <Button onClick={()=> {changeTheme('light')}} className="light_theme" sx={{color:'black', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${light_button})`, boxShadow:'3px 3px 2px 3px grey', display:'none'}} variant='outlined'>Light Theme</Button>
                 </Box>
               <Container>
-                <Box display="flex" marginLeft="auto" marginRight='auto' sx={{justifyContent:'center', marginTop:'50px', borderRadius:'20px'}}>
-                  <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit' sx={{padding:"10px", borderRadius:'20px', border:"2px solid black", background:Colors.green[100]}}>
-                      <Tab LinkComponent={Link} sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white"}} to="/posts" label="All Posts"></Tab>
-                      <Tab LinkComponent={Link} sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white", marginLeft:"20px"}} to='/myPosts' label="My Posts"></Tab>
+                <Box display="flex" marginLeft="auto"  marginRight='auto' sx={{justifyContent:'center', marginTop:'50px', borderRadius:'20px'}}>
+                  <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit' sx={{padding:"10px", borderRadius:'20px', border:"2px solid black", bgcolor:'secondary'}}>
+                      <Tab sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white"}}  onClick={()=>{changePost('all')}} label="All Posts"></Tab>
+                      <Tab sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white", marginLeft:"20px"}} onClick={()=>{changePost('user')}} label="My Posts"></Tab>
                   </Tabs>
                 </Box>
               </Container>
           </Container>
+              {post==='all'?<Posts theme={theme}/>:<UserPosts theme={theme}/>}
       </ThemeProvider>
     </>
   )

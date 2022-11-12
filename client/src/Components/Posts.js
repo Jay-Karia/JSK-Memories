@@ -60,7 +60,7 @@ const Posts = (props) => {
     return (
         <>
             {/* <ThemeProvider theme={light}> */}
-                <Container maxWidth={false} className='addContainer' sx={{backgroundImage:`url(${forest_bg2})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
+                <Container maxWidth={false} minWidth={false} className='addContainer' sx={{backgroundImage:`url(${forest_bg2})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
                     <Box sx={{border:'1px solid black', borderRadius:'9px', background:'white'}}>
                         <h1 align='center'>All Posts</h1>
                     </Box>
@@ -90,10 +90,11 @@ const Posts = (props) => {
                                         </Typography>
                                     </CardContent>
                                 </div>
-                                {/* <hr style={{border:'1px solid black'}}/> */}
-                                <CardActions>
-                                    <label htmlFor="likes" style={{fontSize:'1.4rem', marginLeft:'5px', marginBottom:'5px', padding:'2px'}}>0</label>
-                                    <Button endIcon={<ThumbUpOffAltRoundedIcon/>} size="large" sx={{marginLeft:'10px',color:'green', borderRadius:"5px",'&:hover': {bgcolor:"white"}}} >Like</Button>
+                                <CardActions sx={{padding:"0"}}>
+                                    <div style={{background:"white", margin:"0", height:"42.25px", width:"30px", display:"flex", justifyContent:"center", alignItems:"center", borderBottomLeftRadius:"0.1px", backgroundColor:"white"}}>
+                                        <label htmlFor="likes" style={{fontSize:'1.4rem', marginBottom:'5px'}}>0</label>
+                                    </div>
+                                    <Button endIcon={<ThumbUpOffAltRoundedIcon/>} size="large" sx={{color:'green', borderRadius:"5px",'&:hover': {bgcolor:"white"}}} >Like</Button>
                                     <Button endIcon={<DeleteRoundedIcon/>} size="large" sx={{color:'red','&:hover': {bgcolor:"white"}}}>Delete </Button>
                                 </CardActions>
                             </Card>

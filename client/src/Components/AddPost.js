@@ -15,7 +15,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import * as Colors from '@mui/material/colors'
 import dayjs from 'dayjs'
 
-const AddPost = () => {
+const AddPost = (props) => {
     const [file, setFile] = useState('')
     const [value, setValue] = React.useState(dayjs(Date.now()));
 
@@ -23,69 +23,12 @@ const AddPost = () => {
       setValue(newValue);
     };
 
-    const forest = createTheme({
-        palette: {
-          primary: {
-            main: Colors.green[100]
-          }
-        }
-      })
-  
-      const underwater = createTheme({
-        palette: {
-            primary: {
-                main: Colors.blue[100]
-            }
-        }
-      })
-      const halloween = createTheme({
-        palette: {
-            primary: {
-                main: Colors.purple[100]
-            }
-        }
-      })
-  
-      const dark = createTheme({
-        palette: {
-            primary: {
-                main: Colors.yellow[100]
-            }
-        }
-      })
-  
-      const light = createTheme({
-        palette: {
-          primary: {
-            main: Colors.blueGrey[100]
-          }
-        }
-      })
-
-      const localTheme = localStorage.getItem('theme')
-      const [theme, setTheme] = useState(localTheme)
-      
-
-      useEffect(() => {
-          if (localTheme==='forest') {
-            setTheme(forest)
-          } else if (localTheme === 'dark') {
-            setTheme(dark)
-          }else if (localTheme === 'halloween') {
-            setTheme(halloween)
-          }else if (localTheme === 'underwater') {
-            setTheme(underwater)
-          } else if (localTheme === 'light') {
-            setTheme(light)
-          }
-      })
-
-    //   console.log(theme);
+      // console.log(props.theme);
 
     return (
         <>
-            {/* <ThemeProvider theme={{theme}}> */}
-                <Container className="addContainer" align='center' sx={{border:'2px solid black', marginTop:'30px', border:'2px solid black', borderRadius:'14px', alignItems:"center", background:'white', width:'30rem', marginBottom:'20px', '&:hover': { boxShadow:'1px 10px 20px 3px grey'}, transition:'all .3s ease-in'}}>
+            <ThemeProvider theme={props.theme}>
+                <Container align='center' sx={{marginTop:'30px', border:'2px solid black', borderRadius:'14px', alignItems:"center", width:'30rem', marginBottom:'20px', '&:hover': { boxShadow:'1px 10px 20px 3px grey'}, transition:'all .3s ease-in'}}>
                 <div style={{border:'2px solid white', marginTop:"20px", marginBottom:'20px', backgroundColor:"white", borderRadius:'14px'}}>
                     <div style={{display:'flex', justifyContent:'center'}}>
                         <h1 style={{display:'flex', alignItems:'center'}} align='center'>Add Post <span style={{display:'flex', justifyContent:'center', marginLeft:'20px'}}><PostAddRoundedIcon fontSize='large'/></span></h1>
@@ -95,11 +38,11 @@ const AddPost = () => {
                             <TextField className="textField" label="Title" id="outlined-size-small" style={{marginTop:'30px'}} defaultValue="" size="small"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Description" multiline rows={4} />
+                            <TextField id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Description" multiline rows={4}/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'20px', border:'0.1px solid grey', padding:'10px', fontFamily:'roboto', borderRadius:'5px', width:'70%'}}>
                             <label htmlFor="selection of a file" style={{fontSize:'1.1rem', marginRight:'10px'}}>Upload File: </label>
-                            <Button variant="contained" color='primary' className='btn' sx={{ borderRadius:'30px'}} component="label"><FileUploadRoundedIcon/><input type="file" className="fileUpload" onChange={(e)=>{setFile(e.target.value)}} hidden/></Button>
+                            <Button variant="contained" color='secondary' className='btn' sx={{ borderRadius:'30px'}} component="label"><FileUploadRoundedIcon/><input type="file" className="fileUpload" onChange={(e)=>{setFile(e.target.value)}} hidden/></Button>
                             <label htmlFor="" style={{marginLeft:'10px'}}><b>{file.substring(12).split('.')[0].length>10?file.substring(12).split('.')[0].substring(0, 10)+"..."+file.substring(12).split('.')[1]:file.substring(12)}</b></label>
                         </div>
                         <Box sx={{display:'flex', alignItems:'center', justifyContent:"center", marginTop:'20px'}}>
@@ -112,12 +55,12 @@ const AddPost = () => {
                             </div>
                         </Box>
                         <Box display='flex' sx={{justifyContent:'center', alignItems:'center', marginBottom:'20px', marginTop:'20px'}}>
-                            <Button endIcon={<AddBoxRoundedIcon fontSize='large'/>} variant="contained" className='btn' color='primary' sx={{ fontSize:'large', borderRadius:'10px'}}>Add</Button>
+                            <Button endIcon={<AddBoxRoundedIcon fontSize='large'/>} variant="contained" className='btn' color='secondary' sx={{ fontSize:'large', borderRadius:'10px'}}>Add</Button>
                         </Box>
                     </Box>
                 </div>
                 </Container>
-            {/* </ThemeProvider> */}
+            </ThemeProvider>
         </>
         
     )
