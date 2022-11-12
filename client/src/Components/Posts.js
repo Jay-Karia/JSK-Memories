@@ -10,6 +10,10 @@ import * as Colors from '@mui/material/colors'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import forest_bg2 from './images/forest/forest_bg.jpg'
+import secondary_water from './images/underwater/secondary_water.jpg'
+import secondary_halloween from './images/halloween/s_halloween.jpg'
+import secondary_dark from './images/s_dark.jpg'
+import secondary_light from './images/s_light.jpg'
 
 import back from './images/all.jpg'
 
@@ -60,14 +64,14 @@ const Posts = (props) => {
     return (
         <>
             <ThemeProvider theme={props.theme}>
-                <Container maxWidth={false} minWidth={false} className='addContainer' sx={{backgroundImage:`url(${forest_bg2})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
+                <Container maxWidth={false} minWidth={false} className='addContainer' sx={{backgroundImage:`url(${secondary_light})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
                     <Box sx={{border:'1px solid black', borderRadius:'9px', background:'white'}}>
                         <h1 align='center'>All Posts</h1>
                     </Box>
                     <Container className='allPostsContainer' sx={{padding:'20px', margin:"0"}}>
                         <Box >
                         <Card sx={{ maxWidth: 345, borderRadius:'10px', bgcolor:props.theme.palette.primary.light, '&:hover': {
-                            boxShadow:'0 0 20px 0 grey'
+                            boxShadow:'0 0 20px 0 white'
                         }, border:'2px solid black'}}>
                                 <CardMedia
                                     component="img"
@@ -93,8 +97,8 @@ const Posts = (props) => {
                                     <div style={{background:"white", margin:"0", height:"42.25px", width:"30px", display:"flex", justifyContent:"center", alignItems:"center", borderBottomLeftRadius:"0.1px", backgroundColor:"white"}}>
                                         <label htmlFor="likes" style={{fontSize:'1.4rem', marginBottom:'5px'}}>0</label>
                                     </div>
-                                    <Button endIcon={<ThumbUpOffAltRoundedIcon/>} size="large" sx={{color:'green', borderRadius:"5px",'&:hover': {bgcolor:"white"}}} >Like</Button>
-                                    <Button endIcon={<DeleteRoundedIcon/>} size="large" sx={{color:'red','&:hover': {bgcolor:"white"}}}>Delete </Button>
+                                    <Button endIcon={<ThumbUpOffAltRoundedIcon/>} size="large" sx={{color:'green', borderRadius:"0",'&:hover': {bgcolor:"white"}}} >Like</Button>
+                                    <Button endIcon={<DeleteRoundedIcon/>} size="large" sx={{color:'red','&:hover': {bgcolor:"white"}, borderRadius:"0"}}>Delete </Button>
                                 </CardActions>
                             </Card>
                         </Box>

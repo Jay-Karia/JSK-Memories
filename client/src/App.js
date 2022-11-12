@@ -27,7 +27,8 @@ import forest_bg from './Components/images/forest/forest.jpg'
 
 // Underwater Theme
 import underwater_button from './Components/images/underwater/underwater_btn.jpg'
-import underwater_bg from './Components/images/underwater/underwater_bg.jpg'
+import underwater_bg2 from './Components/images/underwater/underwater_bg.jpg'
+
 
 // Halloween Theme
 import pumpkin_button from './Components/images/halloween/pumkin_button.jpg'
@@ -67,7 +68,7 @@ function App() {
       palette: {
           primary: {
               main: Colors.purple[400],
-              light: Colors.purple[100],
+              light: Colors.purple[50],
               dark: Colors.purple[600]
           }
       }
@@ -77,7 +78,7 @@ function App() {
       palette: {
           primary: {
               main: Colors.yellow[400],
-              light: Colors.yellow[100],
+              light: 'hsl(0, 0%, 90%)',
               dark: Colors.yellow[600],
           }
       }
@@ -124,7 +125,7 @@ function App() {
       }else if (theme === 'underwater') {
         setTheme(underwater)
         const elem = document.getElementById('h')
-        elem.style.backgroundImage = `url(${underwater_bg})`
+        elem.style.backgroundImage = `url(${underwater_bg2})`
         document.getElementsByClassName('container')[0].style.color = 'black'
       } else if (theme === 'light') {
         setTheme(light)
