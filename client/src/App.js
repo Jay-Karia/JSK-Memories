@@ -48,9 +48,8 @@ function App() {
       palette: {
         primary: {
           main: Colors.green[400], // for register button and header font color
-        },
-        secondary: {
-          main: Colors.green[900] // for add post buttons
+          light: Colors.green[100],
+          dark: Colors.green[600]
         }
       }
     })
@@ -58,18 +57,18 @@ function App() {
     const underwater = createTheme({
       palette: {
           primary: {
-              main: Colors.blue[400]
-          }, secondary: {
-            main: Colors.blue[900]
+              main: Colors.blue[400],
+              light: Colors.blue[100],
+              dark: Colors.blue[600]
           }
       }
     })
     const halloween = createTheme({
       palette: {
           primary: {
-              main: Colors.purple[400]
-          }, secondary: {
-            main: Colors.purple[900]
+              main: Colors.purple[400],
+              light: Colors.purple[100],
+              dark: Colors.purple[600]
           }
       }
     })
@@ -78,8 +77,8 @@ function App() {
       palette: {
           primary: {
               main: Colors.yellow[400],
-          }, secondary: {
-            main: Colors.yellow[900]
+              light: Colors.yellow[100],
+              dark: Colors.yellow[600],
           }
       }
     })
@@ -88,8 +87,8 @@ function App() {
       palette: {
         primary: {
           main: Colors.blueGrey[400],
-        }, secondary: {
-          main: Colors.blueGrey[900]
+          light: Colors.blueGrey[100],
+          dark: Colors.blueGrey[600],
         }
       }
     })
@@ -139,8 +138,6 @@ function App() {
       }
     }
   
-    console.log(theme)
-  
     const [post, setPost] = useState('all')
   
     function changePost(post) {
@@ -155,7 +152,8 @@ function App() {
 
         {/* Main Component */}
         <ThemeProvider theme={theme}>
-            <Container className='container' sx={{marginTop: '100px', color:fontColor}}>
+            <Container sx={{marginTop: '100px', color:fontColor}}>
+            <div className="container">
                 <Box marginLeft="auto" marginRight="auto" align='center'>
                     <Typography variant="h2">Welcome to JSK <Typography variant='body' color="primary">Memories</Typography></Typography>
                     <Typography variant="h6" ><span style={{color:'grey'}}>- your house of memories</span></Typography>
@@ -172,9 +170,10 @@ function App() {
                         <Button className="dark_theme" onClick={()=> {changeTheme('dark')}} sx={{color:'white', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${dark_button})`, boxShadow:'3px 3px 2px 3px grey'}} variant='outlined'>Dark Theme</Button>
                         <Button onClick={()=> {changeTheme('light')}} className="light_theme" sx={{color:'black', fontWeight:'bold', fontSize:'1rem', padding:'15px', borderRadius:'50px', marginLeft:'40px', width:'14rem', marginBottom:'10px', background:`url(${light_button})`, boxShadow:'3px 3px 2px 3px grey', display:'none'}} variant='outlined'>Light Theme</Button>
                     </Box>
+            </div>
                 <Container>
                     <Box display="flex" marginLeft="auto"  marginRight='auto' sx={{justifyContent:'center', marginTop:'50px', borderRadius:'20px'}}>
-                    <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit' sx={{padding:"10px", borderRadius:'20px', border:"2px solid black", bgcolor:'secondary'}}>
+                    <Tabs value={value} onChange={(e, v)=>setValue(v)} textColor='inherit' sx={{padding:"10px", borderRadius:'20px', border:"2px solid black", background:theme.palette.primary.light}}>
                         <Tab LinkComponent={Link} to='/post' sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white"}}  onClick={()=>{changePost('all')}} label="All Posts"></Tab>
                         <Tab LinkComponent={Link} to='/userPost' sx={{borderRadius:'20px', fontSize:"1.1rem", padding:"0 30px 0 30px", background:"white", marginLeft:"20px"}} onClick={()=>{changePost('user')}} label="My Posts"></Tab>
                     </Tabs>

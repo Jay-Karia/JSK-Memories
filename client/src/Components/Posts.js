@@ -56,18 +56,17 @@ const Posts = (props) => {
         isMounted=  false
       }
     })
-    
+
     return (
         <>
-            {/* <ThemeProvider theme={light}> */}
+            <ThemeProvider theme={props.theme}>
                 <Container maxWidth={false} minWidth={false} className='addContainer' sx={{backgroundImage:`url(${forest_bg2})`,  backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'1px 10px 20px 7px grey', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  grey'}, transition:'all .3s ease-in', padding:'20px'}}>
                     <Box sx={{border:'1px solid black', borderRadius:'9px', background:'white'}}>
                         <h1 align='center'>All Posts</h1>
                     </Box>
                     <Container className='allPostsContainer' sx={{padding:'20px', margin:"0"}}>
-                        {/* <div style={{border:'2px solid white', backgroundColor:"white", borderRadius:'14px', padding:"20px"}}> */}
                         <Box >
-                        <Card sx={{ maxWidth: 345, borderRadius:'10px', bgcolor:'#dfffdb', '&:hover': {
+                        <Card sx={{ maxWidth: 345, borderRadius:'10px', bgcolor:props.theme.palette.primary.light, '&:hover': {
                             boxShadow:'0 0 20px 0 grey'
                         }, border:'2px solid black'}}>
                                 <CardMedia
@@ -99,10 +98,9 @@ const Posts = (props) => {
                                 </CardActions>
                             </Card>
                         </Box>
-                        {/* </div> */}
                     </Container>
                 </Container>
-            {/* </ThemeProvider> */}
+            </ThemeProvider>
         </>
     );
 };

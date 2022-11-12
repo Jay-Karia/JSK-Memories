@@ -10,7 +10,7 @@ const Header = (props) => {
             <ThemeProvider theme={props.theme}>
                 <AppBar sx={{ bgcolor: "black" }}>
                     <Toolbar>
-                        <Typography variant="h5">JSK Memories</Typography>
+                        <Typography variant="h5" sx={{color:'white'}}>JSK Memories</Typography>
                         <Box display="flex" marginLeft="auto">
                             <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: "grey"}}>Login</Button>
                             <Button LinkComponent={Link} to="/auth" variant="contained" color='primary' sx={{ margin: 1}}>Register</Button>
