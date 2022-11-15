@@ -4,7 +4,6 @@ import {Routes, Route} from 'react-router-dom'
 import Header from "./Components/Header";
 import Auth from './Components/Auth'
 import Posts from './Components/Posts'
-import UserPosts from './Components/UserPosts'
 import PostDetail from './Components/PostDetail'
 import AddPost from './Components/AddPost'
 
@@ -62,8 +61,8 @@ function App() {
                 <Route path="/auth" element={<Auth/>}></Route>
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
                 <Route path="/addPost" element={<AddPost/>}></Route>
-                <Route path="/post" element={<Posts/>}></Route>
-                <Route path="/userPost" element={<UserPosts/>}></Route>
+                <Route path="/post" element={<Posts user={false}/>}></Route>
+                <Route path="/userPost" element={<Posts user={true}/>}></Route>
             </Routes>
         </main>
         </div>

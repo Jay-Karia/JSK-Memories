@@ -10,7 +10,7 @@ const Header = () => {
                     <Toolbar>
                         <Typography variant="h5">JSK Memories</Typography>
                         <Box display="flex" marginLeft="auto">
-                            <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: "grey"}}>Login</Button>
+                            <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, bgcolor: "grey", color:"black"}}>Login</Button>
                             <Button LinkComponent={Link} to="/auth" variant="contained" sx={{ margin: 1, color:'black', bgcolor:Colors.green[600]}}>Register</Button>
                         </Box>
 

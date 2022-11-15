@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { Typography, Box, Container, Card, CardContent, CardHeader, CardMedia, CardActions, IconButton, Avatar, Button} from "@mui/material";
+import { Typography, Box, Container, Card, CardContent, CardHeader, CardMedia, CardActions, IconButton, Avatar, Button, CircularProgress, ToggleButton} from "@mui/material";
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 
 import {ThemeProvider } from '@mui/material/styles';
 
@@ -12,9 +13,9 @@ import back from './images/all.jpg'
 
 import secondary_forest from './images/forest/forest_bg.jpg'
 
-const Posts = () => {
-    const [posts, setPost] = useState(null)
-    const [users, setUsers] = useState(null)
+const Posts = (props) => {
+    const [posts, setPost] = useState('')
+    const [users, setUsers] = useState([])
     let users2 = []
     
     const getAllPosts = async ()=> {
@@ -26,41 +27,44 @@ const Posts = () => {
         const data = await response.json()
         
         if (Object.is(data.posts, null) || data.posts === 'null') {
-            console.log(false)
+            // console.log(false)
         } else{
-            console.log(true)
-            setPost(data.posts)
+            // console.log(true)
+            let url =''
             for (let i=0; i<data.posts.length;i++) {
-                let url = 'http://localhost:8000/getUser/'+data.posts[i].user
+                url = 'http://localhost:8000/getUser/'+data.posts[i].user
                 const res = await fetch(url)
                 const data_ = await res.json()
                 let word = data_.user.name
                 let lower = word.toLowerCase()
                 word = lower.charAt(0).toUpperCase() + lower.slice(1)
     
-                users2.push(word)
-                if (users2!==null) {
-                    setUsers(users2)
-                }
+                // users2.push(word)
+                setUsers(users+", "+word)
             }
+            setPost(data.posts)
         } 
 
 
     }
     useEffect(() => {
         getAllPosts()
-        // console.log(posts)
+        // console.log(users)
     })
+
+    const [selected, setSelected] = React.useState(false);
 
     return (
         <>
-                <Container maxWidth={false} id='postsContainer' sx={{backgroundImage:`url(${secondary_forest})`, backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', boxShadow:'0 0 5px 5px white', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  white'}, transition:'all .3s ease-in', padding:'20px'}}>
+                <Container maxWidth={false} id='postsContainer' sx={{backgroundImage:`url(${secondary_forest})`, backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition: 'sticky',borderRadius:'20px', marginBottom:'20px', width:'80%', marginLeft:"200px", marginTop:'50px', '&:hover': { boxShadow:'7px -3px 10px .1px  white'}, transition:'all .3s ease-in', padding:'20px'}}>
                     <Box sx={{border:'1px solid black', borderRadius:'9px', background:'white'}}>
-                        <h1 align='center'>All Posts</h1>
+                        <h1 align='center'>{props.user?"My Posts":'All Posts'}</h1>
                     </Box>
                     <Container className='allPostsContainer' sx={{padding:'20px', margin:"0"}}>
-                        <Box >
-                <Card sx={{ maxWidth: 345, borderRadius:'10px', bgcolor:Colors.green[100], '&:hover': {
+                        <Box sx={{width:'90rem', display:'flex', flexWrap:"wrap", gap:"10rem", justifyContent:"center", alignItems:"center"}}>
+                        {posts!==''?
+                                posts.map((e, i)=>{
+                                    return <Card sx={{width: 345, borderRadius:'10px', bgcolor:Colors.green[100], '&:hover': {
                             boxShadow:'0 0 15px 0 white'
                         }, border:'2px solid black', transition:'all .3s ease-in'}}>
                                 <CardMedia
@@ -71,26 +75,33 @@ const Posts = () => {
                                 />
                                 <hr style={{border:'1px solid black'}}/>
                                 <div  style={{backgroundColor:"white"}}>
-                                    <CardHeader title="By: Sanjay" subheader="On: 11/4/2022"/>
+                                    <CardHeader title={"By: "+users.split(', ')[i+1]} subheader={"On: "+e.date}/>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                        Shimla Trip
+                                        {e.title}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                        Best ever Shimla Trip
+                                        {e.description}
                                         </Typography>
                                     </CardContent>
                                 </div>
-                                <CardActions sx={{padding:"0"}}>
-                                    <div style={{background:"white", margin:"0", height:"42.25px", width:"30px", display:"flex", justifyContent:"center", alignItems:"center", borderBottomLeftRadius:"0.1px", backgroundColor:"white"}}>
-                                        <label htmlFor="likes" style={{fontSize:'1.4rem', marginBottom:'5px'}}>0</label>
-                                    </div>
-                                    <Button size="large" sx={{color:'green', borderRadius:"0",'&:hover': {bgcolor:"white"}}} ><span style={{display:'flex', fontWeight:"lighter", fontSize:'1rem'}}>Like <ThumbUpOffAltRoundedIcon sx={{marginLeft:"10px"}}/></span></Button>
-                                    <Button size="large" sx={{color:'red','&:hover': {bgcolor:"white"}, borderRadius:"0"}}> <span style={{display:'flex', fontWeight:"lighter", fontSize:'1rem'}}>Delete <DeleteRoundedIcon sx={{marginLeft:"10px"}}/></span> </Button>
-                                    {/* <ThumbUpOffAltRoundedIcon/>
-                                    <DeleteRoundedIcon/> */}
+                                <CardActions sx={{padding:"0", display:"flex", justifyContent:"space-between"}}>
+                                <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                                    <span style={{marginLeft:"10px", fontSize:"1.5rem", marginBottom:"5px"}}>0</span>
+                                    <IconButton sx={{marginLeft:"10px"}}>
+                                        <ThumbUpOffAltRoundedIcon color='success'/>
+                                    </IconButton>
+                                </div>
+                                    <IconButton aria-label="share" sx={{marginRight:"10px"}}>
+                                        <DeleteRoundedIcon color='error' />
+                                    </IconButton>
+
                                 </CardActions>
                             </Card>
+                                    })
+                        :<CircularProgress color="success" />}
+                            
+                            
                         </Box>
                     </Container>
                 </Container>
