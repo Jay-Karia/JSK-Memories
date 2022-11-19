@@ -2,7 +2,6 @@ import "./App.css";
 import {Routes, Route} from 'react-router-dom'
 
 import Header from "./Components/Header";
-import Auth from './Components/Auth'
 import Posts from './Components/Posts'
 import PostDetail from './Components/PostDetail'
 import AddPost from './Components/AddPost'
@@ -14,14 +13,8 @@ import '@fontsource/roboto/400.css';
 import * as Colors from '@mui/material/colors'
 
 
-import ForestIcon from '@mui/icons-material/Forest';
-import SailingIcon from '@mui/icons-material/Sailing';
-import CastleIcon from '@mui/icons-material/Castle';
-
-// Forest Theme
-import forest_bg from './Components/images/forest/forest.jpg'
-
-import secondary_forest from './Components/images/forest/forest_bg.jpg'
+import Login from "./Components/Login";
+import Register from "./Components/Register";
 
 
 
@@ -44,7 +37,7 @@ function App() {
                 </Box>
                 <br /><br /><br />
                     <Container sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                    <Button LinkComponent={Link} to='/addPost' variant="contained" sx={{borderRadius:'50px', fontSize:'1rem', color:'black', bgcolor:Colors.green[600]}}><span>Create a new Post</span></Button>
+                    <Button color='success' LinkComponent={Link} to='/addPost' variant="contained" sx={{borderRadius:'50px', fontSize:'1rem', color:'black', bgcolor:Colors.green[600]}}><span>Create a new Post</span></Button>
                     </Container>
             </div>
                 <Container>
@@ -58,7 +51,8 @@ function App() {
             </Container>
 
             <Routes>
-                <Route path="/auth" element={<Auth/>}></Route>
+                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/register" element={<Register/>}></Route>
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
                 <Route path="/addPost" element={<AddPost/>}></Route>
                 <Route path="/post" element={<Posts user={false}/>}></Route>

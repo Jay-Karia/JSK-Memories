@@ -48,8 +48,7 @@ const Posts = (props) => {
 
     }
     useEffect(() => {
-        getAllPosts()
-        // console.log(users)
+        // getAllPosts()
     })
 
     const [selected, setSelected] = React.useState(false);
@@ -62,7 +61,7 @@ const Posts = (props) => {
                     </Box>
                     <Container className='allPostsContainer' sx={{padding:'20px', margin:"0"}}>
                         <Box sx={{width:'90rem', display:'flex', flexWrap:"wrap", gap:"10rem", justifyContent:"center", alignItems:"center"}}>
-                        {posts!==''?
+                        {/* {posts!==''?
                                 posts.map((e, i)=>{
                                     return <Card sx={{width: 345, borderRadius:'10px', bgcolor:Colors.green[100], '&:hover': {
                             boxShadow:'0 0 15px 0 white'
@@ -99,9 +98,8 @@ const Posts = (props) => {
                                 </CardActions>
                             </Card>
                                     })
-                        :<CircularProgress color="success" />}
-                            
-                            
+                        :<CircularProgress sx={{color:Colors.green[800]}}/>} */}
+
                         </Box>
                     </Container>
                 </Container>
