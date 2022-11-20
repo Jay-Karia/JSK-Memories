@@ -40,22 +40,21 @@ router.post('/register', async(req, res) => {
 // localhost:8000/login
 router.post('/login', async(req, res) => {
     const user = req.body
-
     try {
         const existingUser = await User.findOne({ email: user.email })
         if (existingUser) {
             bcrypt.compare(user.password, existingUser.password).then(match => {
                 if (match) {
-                    return res.status(200).json({ user: existingUser })
+                    return res.status(200).json({ user: existingUser, status:'ok', msg:'Successfully Logged In!' })
                 } else {
-                    return res.status(400).json({ msg: 'Email or password does not match' })
+                    return res.status(400).json({ msg: 'Email or password does not match', status:'error' })
                 }
             })
         } else {
-            return res.status(400).json({ msg: 'Email or password does not match' })
+            return res.status(400).json({ msg: 'Email or password does not match', status:'error' })
         }
     } catch (err) {
-        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:'error' })
     }
 })
 
@@ -65,12 +64,12 @@ router.get('/getUser/:id', async(req, res) => {
     try {
         user = await User.findById(req.params.id)
         if (user.length !== 0) {
-            return res.status(200).json({ user: user })
+            return res.status(200).json({ user: user, status:"ok" })
         }
     } catch (err) {
-        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:"error" })
     }
-    return res.status(400).json({ msg: 'No users found' })
+    return res.status(400).json({ msg: 'No users found' , status:"error"})
 })
 
 module.exports = router;

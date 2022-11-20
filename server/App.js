@@ -13,6 +13,7 @@ dotenv.config()
 
 app.use(bodyParser.json({extended: true }))
 app.use(bodyParser.urlencoded({extended: true }))
+
 app.use(cors())
 
 // Connecting to Database
