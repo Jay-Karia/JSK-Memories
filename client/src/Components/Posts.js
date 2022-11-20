@@ -15,40 +15,14 @@ import secondary_forest from './images/forest/forest_bg.jpg'
 
 const Posts = (props) => {
     const [posts, setPost] = useState('')
-    const [users, setUsers] = useState([])
-    let users2 = []
+    const [users, setUsers] = useState('')
     
     const getAllPosts = async ()=> {
-        const response = await fetch('http://localhost:8000/getAllPosts', {
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-        const data = await response.json()
         
-        if (Object.is(data.posts, null) || data.posts === 'null') {
-            // console.log(false)
-        } else{
-            // console.log(true)
-            let url =''
-            for (let i=0; i<data.posts.length;i++) {
-                url = 'http://localhost:8000/getUser/'+data.posts[i].user
-                const res = await fetch(url)
-                const data_ = await res.json()
-                let word = data_.user.name
-                let lower = word.toLowerCase()
-                word = lower.charAt(0).toUpperCase() + lower.slice(1)
-    
-                // users2.push(word)
-                setUsers(users+", "+word)
-            }
-            setPost(data.posts)
-        } 
-
-
     }
     useEffect(() => {
-        // getAllPosts()
+        getAllPosts()
+
     })
 
     const [selected, setSelected] = React.useState(false);
@@ -74,7 +48,7 @@ const Posts = (props) => {
                                 />
                                 <hr style={{border:'1px solid black'}}/>
                                 <div  style={{backgroundColor:"white"}}>
-                                    <CardHeader title={"By: "+users.split(', ')[i+1]} subheader={"On: "+e.date}/>
+                                {/* <CardHeader title={"By: "+users.split(', ')[i+1]} subheader={"On: "+e.date}/> */}
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
                                         {e.title}

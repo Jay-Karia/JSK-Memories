@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Posts from './Components/Posts'
 import PostDetail from './Components/PostDetail'
 import AddPost from './Components/AddPost'
+import BasicAlert from './Components/BasicAlert'
 
 import React, {useState} from 'react'
 import {Typography, Box, Button, Tabs, Tab, Container} from "@mui/material";
@@ -22,16 +23,29 @@ function App() {
     const [value, setValue] = useState(-1)
 
     const isLoggedIn = useSelector(state=>state.isLoggedIn)
+    const [alert, setAlert] = useState(null)
+
+    const showAlert = (message, type) => {
+        setAlert({
+          msg: message,
+          type: type,
+        });
+        setTimeout(() => {
+          setAlert(null);
+        }, 3000);
+      };
     
     return (
         <div>
         <main>
         {/* Header Component */}
-        <Header/>
+        <Header showAlert={showAlert}/>
+
 
 
         {/* Main Component */}
-            <Container sx={{marginTop: '100px'}}>
+            <Container sx={{marginTop: '150px'}}>
+            <BasicAlert alert={alert} />
             <div className="container">
                 <Box marginLeft="auto" marginRight="auto" align='center'>
                     <Typography variant="h2">Welcome to JSK <Typography variant='body'> <span style={{color:Colors.green[900]}}>Memories</span></Typography></Typography>
@@ -53,8 +67,8 @@ function App() {
             </Container>
 
             <Routes>
-                <Route path="/login" element={<Login/>}></Route>
-                <Route path="/register" element={<Register/>}></Route>
+                <Route path="/login" element={<Login showAlert={showAlert}/>}></Route>
+                <Route path="/register" element={<Register showAlert={showAlert}/>}></Route>
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
                 <Route path="/addPost" element={<AddPost/>}></Route>
                 <Route path="/post" element={<Posts user={false}/>}></Route>
