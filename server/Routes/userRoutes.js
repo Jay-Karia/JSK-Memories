@@ -26,14 +26,14 @@ router.post('/register', async(req, res) => {
     user.email = user.email.toLowerCase()
 
     const existingUser = await User.findOne({ email: user.email })
-    if (existingUser) return res.status(400).json({ msg: 'User already exists. Try to Login instead' })
+    if (existingUser) return res.status(400).json({ msg: 'User already exists. Try to Login instead' , status:'error'})
 
     try {
         const newUser = new User(user)
         newUser.save()
-        return res.status(200).json({ msg: 'Successfully registered a new user', user: user })
+        return res.status(200).json({ msg: 'Successfully registered a new user', user: user, status:"ok" })
     } catch (err) {
-        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err , status:'error'})
     }
 })
 

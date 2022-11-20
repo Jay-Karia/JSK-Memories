@@ -9,7 +9,7 @@ const User = require('../models/user')
 router.get('/getAllPosts', async(req, res) => {
     let posts;
     try {
-        posts = await Post.find()
+        posts = await Post.find().populate('user')
         // return res.status(200).json({ yourPosts: posts })
     } catch (err) {
         return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
