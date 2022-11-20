@@ -16,11 +16,13 @@ import * as Colors from '@mui/material/colors'
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 
-
+import {useSelector} from 'react-redux' 
 
 function App() {
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(-1)
 
+    const isLoggedIn = useSelector(state=>state.isLoggedIn)
+    
     return (
         <div>
         <main>

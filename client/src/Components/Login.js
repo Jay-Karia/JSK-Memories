@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Box, TextField, Container, Button, Typography} from '@mui/material'
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 import * as Colors from '@mui/material/colors'
 
@@ -9,13 +10,35 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [cPassword, setCPassword] = useState('')
 
+    const [emailValidate, setEmailValidate] = useState(null)
+    const [passwordValidate, setPasswordValidate] = useState(null)
+    const [cPassValidate, setCPassValidate] = useState(false)
+
     const handleSubmit = (e)=> {
         e.preventDefault()
-        if (cPassword!==password) {
-            alert('Your password does not match')
-        } else if (password.length<6) {
-            alert('Password length too short (minimum 6 characters)')
+    }
+
+    const validateEmail = ()=> {
+        const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        const validate = email.toLowerCase().match(re)
+        setEmailValidate(validate)
+    }
+
+    const validatePassword = ()=>{
+        const reg =  /^[a-zA-Z0-9!@#$%^&*]{6,16}$/
+        const validateP = password.toLowerCase().match(reg)
+        setPasswordValidate(validateP)
+
+    }
+
+    const validateCPass = (e)=> {
+        if (e.target.value!==password) {
+            setCPassValidate(false)
+        } else {
+            setCPassValidate(true)
+            // console.log(password)
         }
+        console.log(cPassword)
     }
     return (
         <>
@@ -26,20 +49,19 @@ const Login = () => {
                     </div>
                     <Box component="form" sx={{ '& .Mu  iTextField-root': { m: 1, width: '20rem' }, padding:"20px"}} noValidate autoComplete="off">
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField type='email' onChange={(e)=>{setEmail(e.target.value)}} color='common' className="email" label="Email" id="outlined-multiline-static" style={{marginTop:'30px', width:'25rem'}} defaultValue="" size="md"/>
+                            <TextField error={emailValidate===null?true:false} type='email' onChange={(e)=>{setEmail(e.target.value);validateEmail()}} color='common' className="email" label="Email" id="outlined-multiline-static" style={{width:'25rem'}} defaultValue="" size="md"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField onChange={(e)=>{setPassword(e.target.value)}} type='password' color='common' id="outlined-multiline-static " sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Password"/>
+                            <TextField error={passwordValidate===null?true:false} onChange={(e)=>{setPassword(e.target.value);validatePassword()}} type='password' color='common' id="outlined-multiline-static " sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Password"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField onChange={(e)=>{setCPassword(e.target.value)}} type='password' color='common' id="outlined-multiline-static cPass field" sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Confirm Password"/>
+                            <TextField error={cPassValidate?false:true} onChange={(e)=>{setCPassword(e.target.value);validateCPass(e)}} type='password' color='common' id="outlined-multiline-static cPass field" sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Confirm Password"/>
                         </div>
                         <Box display='flex' sx={{justifyContent:'center', alignItems:'center', marginBottom:'20px', marginTop:'20px'}}>
                             <Button onClick={(e)=>{handleSubmit(e)}} type='submit' color='grey'  variant="contained" className='btn' sx={{ fontSize:'large', borderRadius:'10px', bgcolor:Colors.grey[900], color:'white', marginTop:"20px"}}>Login</Button>
                         </Box>
                         <div className="footer">
-                            {/* <Button color='common'  variant="contained" sx={{borderRadius:'10px', bgcolor:Colors.grey[900], color:"white", padding:"0"}}>⬅</Button> */}
-                            <Typography variant='h6' sx={{marginTop:"10px"}}>New here? <a href="/register">Register</a></Typography>
+                            <Typography variant='h6'>New here? <a href="/register">Register</a></Typography>
                         </div>
                     </Box>
                 </div>

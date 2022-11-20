@@ -19,7 +19,7 @@ function Register() {
   }
   return (
     <>
-        <Container align='center'  sx={{marginTop:'30px', border:'2px solid black', borderRadius:'14px', alignItems:"center", width:'30rem', marginBottom:'20px', '&:hover': { boxShadow:'1px 10px 20px 3px grey'}, transition:'all .3s ease-in', bgcolor:Colors.grey[600], height:"37rem"}}>
+        <Container align='center'  sx={{marginTop:'30px', border:'2px solid black', borderRadius:'14px', alignItems:"center", width:'30rem', marginBottom:'20px', '&:hover': { boxShadow:'1px 10px 20px 3px grey'}, transition:'all .3s ease-in', bgcolor:Colors.grey[600]}}>
           <div style={{border:'2px solid white', marginTop:"20px", marginBottom:'20px', backgroundColor:"white", borderRadius:'14px', height:"auto"}}>
             <div style={{display:'flex', justifyContent:'center'}}>
                 <h1 style={{display:'flex', alignItems:'center'}} align='center'>Register <span style={{display:'flex', justifyContent:'center', marginLeft:'20px'}}></span></h1>
@@ -33,9 +33,6 @@ function Register() {
                 </div>
                 <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                     <TextField onChange={(e)=>{setPassword(e.target.value)}} type='password' color='common' id="outlined-multiline-static " sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Password"/>
-                </div>
-                <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                    <TextField onChange={(e)=>{setCPassword(e.target.value)}} type='password' color='common' id="outlined-multiline-static cPass field" sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Confirm Password"/>
                 </div>
                 <Box display='flex' sx={{justifyContent:'center', alignItems:'center', marginBottom:'10px', marginTop:'20px'}}>
                     <Button onClick={(e)=>{handleSubmit(e)}} type='submit' color='grey'  variant="contained" className='btn' sx={{ fontSize:'large', borderRadius:'10px', bgcolor:Colors.grey[900], color:'white', marginTop:"20px"}}>Register</Button>
