@@ -4,6 +4,8 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 import * as Colors from '@mui/material/colors'
 
+import axios from 'axios'
+
 const Login = () => {
 
     const [email, setEmail] = useState('')
@@ -14,8 +16,31 @@ const Login = () => {
     const [passwordValidate, setPasswordValidate] = useState(null)
     const [cPassValidate, setCPassValidate] = useState(false)
 
-    const handleSubmit = (e)=> {
+    const handleSubmit = async (e)=> {
         e.preventDefault()
+        if (emailValidate!==null && passwordValidate!==null && cPassValidate!==false) {
+            const res = fetch('http://localhost:8000/login', {
+                method:"POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({"email":email,
+                "password": password})
+                
+            }).then((res)=>res.json())
+            .then((data)=>{
+                alert(data.msg)
+                console.log(email)
+                console.log(password)
+                if (data.status==='error') {
+                    setEmailValidate(null)
+                    setPasswordValidate(null)
+                }
+            })
+        }
+        else {
+            alert('Could not submit form')
+        }
     }
 
     const validateEmail = ()=> {
@@ -36,9 +61,7 @@ const Login = () => {
             setCPassValidate(false)
         } else {
             setCPassValidate(true)
-            // console.log(password)
         }
-        console.log(cPassword)
     }
     return (
         <>
@@ -49,13 +72,13 @@ const Login = () => {
                     </div>
                     <Box component="form" sx={{ '& .Mu  iTextField-root': { m: 1, width: '20rem' }, padding:"20px"}} noValidate autoComplete="off">
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField error={emailValidate===null?true:false} type='email' onChange={(e)=>{setEmail(e.target.value);validateEmail()}} color='common' className="email" label="Email" id="outlined-multiline-static" style={{width:'25rem'}} defaultValue="" size="md"/>
+                            <TextField color='success' error={emailValidate===null?true:false} type='email' onChange={(e)=>{setEmail(e.target.value);validateEmail()}} className="email" label="Email" id="outlined-multiline-static" style={{width:'25rem'}} defaultValue="" size="md"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField error={passwordValidate===null?true:false} onChange={(e)=>{setPassword(e.target.value);validatePassword()}} type='password' color='common' id="outlined-multiline-static " sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Password"/>
+                            <TextField error={passwordValidate===null?true:false} onChange={(e)=>{setPassword(e.target.value);validatePassword()}} type='password' color='success' id="outlined-multiline-static " sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Password"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField error={cPassValidate?false:true} onChange={(e)=>{setCPassword(e.target.value);validateCPass(e)}} type='password' color='common' id="outlined-multiline-static cPass field" sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Confirm Password"/>
+                            <TextField error={cPassValidate?false:true} onChange={(e)=>{setCPassword(e.target.value);validateCPass(e)}} type='password' color='success' id="outlined-multiline-static cPass field" sx={{backgroundColor:'white', marginTop:'30px', width:'25rem'}} label="Confirm Password"/>
                         </div>
                         <Box display='flex' sx={{justifyContent:'center', alignItems:'center', marginBottom:'20px', marginTop:'20px'}}>
                             <Button onClick={(e)=>{handleSubmit(e)}} type='submit' color='grey'  variant="contained" className='btn' sx={{ fontSize:'large', borderRadius:'10px', bgcolor:Colors.grey[900], color:'white', marginTop:"20px"}}>Login</Button>
