@@ -1,28 +1,31 @@
 const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
-function verifyJWT(req, res, next) {
+async function verifyJWT (req, res, next) {
     try {
         const token = req.headers['x-access-token'].split(' ')[1]
         if (token) {
-            jwt.verify(token, process.env.PASSPORTSECRET, (err, decoded) => {
+            jwt.verify(token, process.env.PASSPORTSECRET, async (err, decoded) => {
                 if (err) return res.json({
                     isLoggedIn: false,
                     msg: 'Failed to Authenticate',
                     err: err
                 })
-                req.user = {}
-                req.user.id = decoded.is
-                req.user.name = decoded.name
+                const user = await User.findById(decoded.id)
+                res.status(200).json({
+                    payload:user,
+                    status:'ok'
+                })
                 next()
             })
         } else {
-            res.status(400).json({
+            res.json({
                 msg: 'No Token given',
                 status: "error"
             })
         }
     } catch {
-        res.status(400).json({
+        res.json({
             msg: 'Incorrect Token given',
             status: "error"
         })
