@@ -20,10 +20,11 @@ import Register from "./Components/Register";
 import {useSelector} from 'react-redux' 
 
 function App() {
-    const [value, setValue] = useState(-1)
+    const [value, setValue] = useState(0)
 
     const isLoggedIn = useSelector(state=>state.isLoggedIn)
     const [alert, setAlert] = useState(null)
+    const [name, setName] = useState(null)
 
     const showAlert = (message, type) => {
         setAlert({
@@ -36,17 +37,19 @@ function App() {
       };
 
       useEffect(() => {
-          fetch('http://localhost:800/isUserAuth', {
+        const requestOptions = {
+            method: 'GET',
             headers: {
                 'x-access-token': localStorage.getItem('token')
             }
-          }).then((res)=>res.json())
+        };
+          fetch('http://localhost:8000/isUserAuth', requestOptions).then((res)=>res.json())
           .then((data)=>{
-            console.log(data)
-          })
-      })
-      
-
+            try {
+                setName(data.payload.name)
+            } catch {}
+        })
+    })
     
     return (
         <div>
@@ -80,7 +83,7 @@ function App() {
             </Container>
 
             <div style={{display:"flex", alignItems:"center", justifyContent:'center', marginTop:"20px"}}>
-                <h1>Welcome Jay</h1>
+                <h1>{name && 'Welcome '+name}</h1>
             </div>
 
             <Routes>
