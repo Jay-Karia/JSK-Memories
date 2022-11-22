@@ -5,6 +5,8 @@ const router = express.Router()
 const Post = require('../models/post')
 const User = require('../models/user')
 
+const verifyJWT = require('../middleware/verifyJWT')
+
 // localhost:8000/getAllPosts
 router.get('/getAllPosts', async(req, res) => {
     let posts;

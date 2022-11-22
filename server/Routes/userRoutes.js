@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv').config()
 
 const User = require('../models/user')
+const verifyJWT = require('../middleware/verifyJWT')
 
 // localhost:8000/getAllUsers
-router.get('/getAllUsers', async(req, res) => {
+router.get('/getAllUsers', verifyJWT, async(req, res) => {
     let users;
     try {
         users = await User.find()
@@ -80,6 +81,13 @@ router.get('/getUser/:id', async(req, res) => {
         return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:"error" })
     }
     return res.status(400).json({ msg: 'No users found' , status:"error"})
+})
+
+router.get('/isUserAuth', verifyJWT, (req, res) => {
+    res.json({
+        isLoggedIn: true,
+        name: req.user.name
+    })
 })
 
 module.exports = router;

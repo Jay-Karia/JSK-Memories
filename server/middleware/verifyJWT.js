@@ -7,7 +7,8 @@ function verifyJWT(req, res, next) {
             jwt.verify(token, process.env.PASSPORTSECRET, (err, decoded) => {
                 if (err) return res.json({
                     isLoggedIn: false,
-                    msg: 'Failed to Authenticate'
+                    msg: 'Failed to Authenticate',
+                    err: err
                 })
                 req.user = {}
                 req.user.id = decoded.is
@@ -16,7 +17,7 @@ function verifyJWT(req, res, next) {
             })
         } else {
             res.status(400).json({
-                msg: 'Incorrect Token given',
+                msg: 'No Token given',
                 status: "error"
             })
         }
