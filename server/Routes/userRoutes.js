@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
+const dotenv = require('dotenv').config()
 
 const User = require('../models/user')
 
@@ -45,7 +48,14 @@ router.post('/login', async(req, res) => {
         if (existingUser) {
             bcrypt.compare(user.password, existingUser.password).then(match => {
                 if (match) {
-                    return res.status(200).json({ user: existingUser, status:'ok', msg:'Successfully Logged In!' })
+                    const payload = {
+                        id: existingUser._id,
+                    }
+                    jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '30d'}, 
+                    (err, token)=> {
+                        if (err) return  res.status(400).json({ msg: err, status: "error" })
+                        return res.status(200).json({ user: existingUser, status:'ok', msg:'Successfully Logged In!', token:'Bearer '+token })
+                    })
                 } else {
                     return res.status(400).json({ msg: 'Email or password does not match', status:'error' })
                 }
