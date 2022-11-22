@@ -24,7 +24,7 @@ const Login = (props) => {
     const handleSubmit = async (e)=> {
         e.preventDefault()
         if (emailValidate!==null && passwordValidate!==null && cPassValidate!==false) {
-            const res = fetch('http://localhost:8000/login', {
+            fetch('http://localhost:8000/login', {
                 method:"POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -40,6 +40,9 @@ const Login = (props) => {
                     setPasswordValidate(null)
                     return
                 } else {
+                    const bearer_token = data.token
+                    localStorage.setItem('token', bearer_token)
+
                     dispatch(authActions.login())
                     props.showAlert(data.msg, 'success')
                     navigate('/post')

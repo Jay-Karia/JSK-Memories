@@ -7,7 +7,7 @@ import PostDetail from './Components/PostDetail'
 import AddPost from './Components/AddPost'
 import BasicAlert from './Components/BasicAlert'
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Typography, Box, Button, Tabs, Tab, Container} from "@mui/material";
 import {Link} from 'react-router-dom'
 import '@fontsource/roboto/400.css';
@@ -34,6 +34,19 @@ function App() {
           setAlert(null);
         }, 3000);
       };
+
+      useEffect(() => {
+          fetch('http://localhost:800/isUserAuth', {
+            headers: {
+                'x-access-token': localStorage.getItem('token')
+            }
+          }).then((res)=>res.json())
+          .then((data)=>{
+            console.log(data)
+          })
+      })
+      
+
     
     return (
         <div>
@@ -43,7 +56,7 @@ function App() {
 
 
 
-        {/* Main Component */}
+        {/* Main Component */} 
             <Container sx={{marginTop: '150px'}}>
             <BasicAlert alert={alert} />
             <div className="container">
@@ -65,6 +78,10 @@ function App() {
                     </Box>
                 </Container>
             </Container>
+
+            <div style={{display:"flex", alignItems:"center", justifyContent:'center', marginTop:"20px"}}>
+                <h1>Welcome Jay</h1>
+            </div>
 
             <Routes>
                 <Route path="/login" element={<Login showAlert={showAlert}/>}></Route>
