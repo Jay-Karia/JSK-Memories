@@ -35,10 +35,10 @@ router.post('/register', async(req, res) => {
     try {
         const newUser = new User(user)
         newUser.save()
-        return res.status(200).json({ msg: 'Successfully registered a new user', user: user, status:"ok" })
     } catch (err) {
         return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err , status:'error'})
     }
+    return res.status(200).json({ user: existingUser, status:'ok', msg:'Successfully Logged In!'})
 })
 
 // localhost:8000/login
@@ -52,7 +52,7 @@ router.post('/login', async(req, res) => {
                     const payload = {
                         id: existingUser._id,
                     }
-                    jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '30d'}, 
+                    jwt.sign(payload, process.env.JWT_SECRET, 
                     (err, token)=> {
                         if (err) return  res.status(400).json({ msg: err, status: "error" })
                         return res.status(200).json({ user: existingUser, status:'ok', msg:'Successfully Logged In!', token:'Bearer '+token })

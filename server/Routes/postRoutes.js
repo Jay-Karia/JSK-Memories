@@ -30,10 +30,10 @@ router.post('/addPost', async(req, res) => {
     try {
         existingUser = await User.findById(post.user)
     } catch (err) {
-        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:'error' })
     }
     if (!existingUser) {
-        return res.status(200).json({ msg: 'No users found' })
+        return res.status(200).json({ msg: 'No users found' , status:'error'})
     }
     const newPost = new Post(post)
 
@@ -44,7 +44,7 @@ router.post('/addPost', async(req, res) => {
     await existingUser.save({ session })
     await session.commitTransaction()
 
-    return res.status(200).json({ msg: 'Successfully created a new post', post: post })
+    return res.status(200).json({ msg: 'Successfully created a new post', post: post, status:'ok' })
 })
 
 // localhost:8000/updatePost/id
