@@ -19,11 +19,17 @@ const AddPost = (props) => {
     const [file, setFile] = useState('')
     const [value, setValue] = React.useState(dayjs(Date.now()));
 
+    const [user, setUser] = useState()
+
+    const [title, setTitle] = useState()
+    const [desc, setDesc] = useState()
+    const [folder, setFolder] = useState()
+
     const handleChange = (newValue) => {
       setValue(newValue);
     };
 
-    const folder = (e)=>{
+    const folder_ = (e)=>{
         let items = e.target.value
         let counter = 0
         let indexes = []
@@ -41,6 +47,44 @@ const AddPost = (props) => {
         }
     }
 
+    useEffect(() => {
+        const requestOptions = {
+            headers: {
+                'x-access-token': localStorage.getItem('token')
+            }
+        };
+          fetch('http://localhost:8000/isUserAuth', requestOptions).then((res)=>res.json())
+          .then((data)=>{
+            try {
+                setUser(data.payload._id)
+            } catch {}
+        })
+    })
+
+    const handleSubmit = (e)=> {
+        e.preventDefault()
+        fetch('http://localhost:8000/addPost', {
+            method:"POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: title,
+                description: desc,
+                imageURL: file,
+                user: user,
+                date: value
+            })
+        }).then(res=>res.json())
+        .then((data)=> {
+            if (data.status==='ok') {
+                props.showAlert(data.msg, 'success')
+            } else {
+                props.showAlert(data.msg, 'error')
+            }
+        })
+    }
+
       // console.log(props.theme);
 
     return (
@@ -52,13 +96,13 @@ const AddPost = (props) => {
                     </div>
                     <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '20rem' }}} noValidate autoComplete="off">
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField color='success' className="textField" label="Title" id="outlined-size-small" style={{marginTop:'30px'}} defaultValue="" size="small"/>
+                            <TextField onChange={(e)=>{setTitle(e.target.value)}} color='success' className="textField" label="Title" id="outlined-size-small" style={{marginTop:'30px'}} defaultValue="" size="small"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField color='success' id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Description" multiline rows={4}/>
+                            <TextField onChange={(e)=>{setDesc(e.target.value)}} color='success' id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Description" multiline rows={4}/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField color='success' onChange={(e)=>{folder(e)}} id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Folder (separate by '\')"/>
+                            <TextField color='success' onChange={(e)=>{folder(e);setFolder(e.target.value)}} id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Folder (separate by '\')"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'20px', border:'0.1px solid grey', padding:'10px', fontFamily:'roboto', borderRadius:'5px', width:'70%'}}>
                             <label htmlFor="selection of a file" style={{fontSize:'1.1rem', marginRight:'10px'}}>Upload File: </label>
@@ -75,7 +119,7 @@ const AddPost = (props) => {
                             </div>
                         </Box>
                         <Box display='flex' sx={{justifyContent:'center', alignItems:'center', marginBottom:'20px', marginTop:'20px'}}>
-                            <Button color='success'  endIcon={<AddBoxRoundedIcon fontSize='large'/>} variant="contained" className='btn' sx={{ fontSize:'large', borderRadius:'10px', bgcolor:Colors.green[900]}}>Add</Button>
+                            <Button color='success'  type='submit' onClick={(e)=>{handleSubmit(e)}} endIcon={<AddBoxRoundedIcon fontSize='large'/>} variant="contained" className='btn' sx={{ fontSize:'large', borderRadius:'10px', bgcolor:Colors.green[900]}}>Add</Button>
                         </Box>
                     </Box>
                 </div>

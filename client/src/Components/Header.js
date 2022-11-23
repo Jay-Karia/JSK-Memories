@@ -43,6 +43,7 @@ const Header = (props) => {
         navigate('/login');
         props.showAlert('Successfully Logged out', 'success')
         localStorage.clear()
+        window.location.reload()
     }
     const navigate = useNavigate()
 

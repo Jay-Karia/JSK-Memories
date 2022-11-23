@@ -49,7 +49,7 @@ function App() {
                 setName(data.payload.name)
             } catch {}
         })
-    })
+        })
     
     return (
         <div>
@@ -60,8 +60,11 @@ function App() {
 
 
         {/* Main Component */} 
-            <Container sx={{marginTop: '150px'}}>
+            <Container sx={{marginTop: '100px'}}>
             <BasicAlert alert={alert} />
+            <div style={{display:"flex", alignItems:"center", justifyContent:'center', marginTop:"20px", marginBottom:'20px'}}>
+                <h1>{name && 'Hello '+name}</h1>
+            </div>
             <div className="container">
                 <Box marginLeft="auto" marginRight="auto" align='center'>
                     <Typography variant="h2">Welcome to JSK <Typography variant='body'> <span style={{color:Colors.green[900]}}>Memories</span></Typography></Typography>
@@ -82,15 +85,12 @@ function App() {
                 </Container>
             </Container>
 
-            <div style={{display:"flex", alignItems:"center", justifyContent:'center', marginTop:"20px"}}>
-                <h1>{name && 'Welcome '+name}</h1>
-            </div>
 
             <Routes>
                 <Route path="/login" element={<Login showAlert={showAlert}/>}></Route>
                 <Route path="/register" element={<Register showAlert={showAlert}/>}></Route>
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
-                <Route path="/addPost" element={<AddPost/>}></Route>
+                <Route path="/addPost" element={<AddPost showAlert={showAlert}/>}></Route>
                 <Route path="/post" element={<Posts user={false}/>}></Route>
                 <Route path="/userPost" element={<Posts user={true}/>}></Route>
             </Routes>
