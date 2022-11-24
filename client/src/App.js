@@ -24,7 +24,7 @@ function App() {
 
     const isLoggedIn = useSelector(state=>state.isLoggedIn)
     const [alert, setAlert] = useState(null)
-    const [name, setName] = useState(null)
+    const [name, setName] = useState('')
 
     const showAlert = (message, type) => {
         setAlert({

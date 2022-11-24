@@ -3,10 +3,7 @@ import {Box, TextField, Container, Button} from '@mui/material'
 
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -14,6 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import * as Colors from '@mui/material/colors'
 import dayjs from 'dayjs'
+
+import {useNavigate} from 'react-router-dom'
 
 const AddPost = (props) => {
     const [file, setFile] = useState('')
@@ -24,6 +23,8 @@ const AddPost = (props) => {
     const [title, setTitle] = useState()
     const [desc, setDesc] = useState()
     const [folder, setFolder] = useState()
+
+    const navigate = useNavigate()
 
     const handleChange = (newValue) => {
       setValue(newValue);
@@ -71,7 +72,7 @@ const AddPost = (props) => {
             body: JSON.stringify({
                 title: title,
                 description: desc,
-                imageURL: file,
+                image: file,
                 user: user,
                 date: value
             })
@@ -79,6 +80,7 @@ const AddPost = (props) => {
         .then((data)=> {
             if (data.status==='ok') {
                 props.showAlert(data.msg, 'success')
+                navigate('/post')
             } else {
                 props.showAlert(data.msg, 'error')
             }
