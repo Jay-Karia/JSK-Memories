@@ -9,12 +9,16 @@ const Image = require('../models/image')
 const verifyJWT = require('../middleware/verifyJWT')
 const multer = require('multer')
 
+let image_name = ''
+
 // multer storage
 const Storage = multer.diskStorage({
     destination: 'uploads',
-    filename: (req, file, cb)=> {
-        cb(null, file.originalname)
-    }
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null,uniqueSuffix+'-'+file.originalname)
+        image_name = uniqueSuffix+'-'+file.originalname
+      }
 })
 
 const upload = multer({
@@ -38,13 +42,14 @@ router.get('/getAllPosts', async(req, res) => {
 })
 
 // localhost:8000/addPost
-router.post('/addPost',upload, async(req, res) => {
+router.post('/addPost', upload, async(req, res) => {
     const post = req.body
+    console.log(image_name)
 
     const image = new Image({
-        name: post.image,
+        name: image_name,
         image: {
-            data: post.image,
+            data: image_name,
             contentType: 'image/png'
         }
     })
