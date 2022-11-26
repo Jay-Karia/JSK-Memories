@@ -30,7 +30,7 @@ mongoose.connect(dbURI, {
     console.error(err)
 })
 
-app.use(express.static(__dirname+"./uploads"))
+app.use(express.static(__dirname+"/uploads"))
 
 app.use('/', postRoutes)
 app.use('/', userRoutes)

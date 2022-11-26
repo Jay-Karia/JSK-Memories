@@ -84,10 +84,7 @@ router.get('/getUser/:id', async(req, res) => {
 })
 
 router.get('/isUserAuth', verifyJWT, (req, res) => {
-    res.json({
-        isLoggedIn: true,
-        name: req.user.name
-    })
+    res.status(200)
 })
 
 module.exports = router;

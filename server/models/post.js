@@ -7,7 +7,7 @@ const PostSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    imageURL: {
+    image: {
         type: String,
     },
     user: {

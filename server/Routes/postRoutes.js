@@ -4,7 +4,6 @@ const router = express.Router()
 
 const Post = require('../models/post')
 const User = require('../models/user')
-const Image = require('../models/image')
 
 const verifyJWT = require('../middleware/verifyJWT')
 const multer = require('multer')
@@ -23,7 +22,7 @@ const Storage = multer.diskStorage({
 
 const upload = multer({
     storage: Storage
-}).single('testImage')
+})
 
 // localhost:8000/getAllPosts
 router.get('/getAllPosts', async(req, res) => {
@@ -42,37 +41,22 @@ router.get('/getAllPosts', async(req, res) => {
 })
 
 // localhost:8000/addPost
-router.post('/addPost', upload, async(req, res) => {
+router.post('/addPost', upload.single('file'), async(req, res) => {
     const post = req.body
-    console.log(image_name)
 
-    const image = new Image({
-        name: image_name,
-        image: {
-            data: image_name,
-            contentType: 'image/png'
-        }
-    })
-    image.save().then(()=>{
-        res.json({
-            msg: 'Success'
-        })
-    })
+    // post.image = image_name
 
-    res.json({
-        msg:'Success'
-    })
-
-    // let existingUser;
-    // try {
-    //     existingUser = await User.findById(post.user)
-    // } catch (err) {
-    //     return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:'error' })
-    // }
-    // if (!existingUser) {
-    //     return res.status(200).json({ msg: 'No users found' , status:'error'})
-    // }
-    // const newPost = new Post(post)
+    let existingUser;
+    try {
+        existingUser = await User.findById(post.user)
+    } catch (err) {
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:'error' })
+    }
+    if (!existingUser) {
+        return res.status(200).json({ msg: 'Login to use this feature' , status:'error'})
+    }
+    const newPost = new Post(post)
+    console.log(req.file)
 
     // const session = await mongoose.startSession()
     // session.startTransaction()
@@ -81,7 +65,7 @@ router.post('/addPost', upload, async(req, res) => {
     // await existingUser.save({ session })
     // await session.commitTransaction()
 
-    // return res.status(200).json({ msg: 'Successfully created a new post', post: post, status:'ok' })
+    return res.status(200).json({ msg: 'Successfully created a new post', post: post, status:'ok' })
 })
 
 // localhost:8000/updatePost/id
