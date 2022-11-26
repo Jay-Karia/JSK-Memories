@@ -12,6 +12,8 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import * as Colors from '@mui/material/colors'
 import dayjs from 'dayjs'
 
+import axios from 'axios'
+
 import {useNavigate} from 'react-router-dom'
 
 const AddPost = (props) => {
@@ -63,20 +65,20 @@ const AddPost = (props) => {
     })
 
     const handleSubmit = (e)=> {
-        e.preventDefault()
-        fetch('http://localhost:8000/addPost', {
-            method:"POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                description: desc,
-                image: file,
-                user: user,
-                date: value
-            })
-        }).then(res=>res.json())
+        e.preventDefault();
+        
+        // Update the formData object
+        const formData = new FormData();
+     
+        // Update the formData object
+        formData.append(
+          "file",
+          file,
+          file.name
+        );
+        
+        axios.post('http://localhost:8000/addPost', formData)
+        // .then(res=>res.json())
         .then((data)=> {
             if (data.status==='ok') {
                 props.showAlert(data.msg, 'success')
@@ -87,8 +89,9 @@ const AddPost = (props) => {
         })
     }
 
-      // console.log(props.theme);
-
+    const fileUpload = (e)=> {
+        setFile(e.target.files[0])
+    }
     return (
         <>
                 <Container align='center'  sx={{marginTop:'30px', border:'2px solid black', borderRadius:'14px', alignItems:"center", width:'30rem', marginBottom:'20px', '&:hover': { boxShadow:'1px 10px 20px 3px grey'}, transition:'all .3s ease-in', bgcolor:Colors.green[100]}}>
@@ -104,12 +107,13 @@ const AddPost = (props) => {
                             <TextField onChange={(e)=>{setDesc(e.target.value)}} color='success' id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Description" multiline rows={4}/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                            <TextField color='success' onChange={(e)=>{folder(e);setFolder(e.target.value)}} id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Folder (separate by '\')"/>
+                            <TextField color='success' onChange={(e)=>{folder_(e);setFolder(e.target.value)}} id="outlined-multiline-static field" sx={{backgroundColor:'white'}} label="Folder (separate by '\')"/>
                         </div>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'20px', border:'0.1px solid grey', padding:'10px', fontFamily:'roboto', borderRadius:'5px', width:'70%'}}>
                             <label htmlFor="selection of a file" style={{fontSize:'1.1rem', marginRight:'10px'}}>Upload File: </label>
-                            <Button color='success'  variant="contained" className='btn' sx={{ borderRadius:'30px', bgcolor:Colors.green[900]}} component="label"><FileUploadRoundedIcon/><input type="file" className="fileUpload" onChange={(e)=>{setFile(e.target.value)}} hidden/></Button>
-                            <label htmlFor="" style={{marginLeft:'10px'}}><b>{file.substring(12).split('.')[0].length>10?file.substring(12).split('.')[0].substring(0, 10)+"..."+file.substring(12).split('.')[1]:file.substring(12)}</b></label>
+                            <Button color='success'  variant="contained" className='btn' sx={{ borderRadius:'30px', bgcolor:Colors.green[900]}} component="label"><FileUploadRoundedIcon/><input type="file" className="fileUpload" onChange={(e)=>{fileUpload(e)}} hidden/></Button>
+                            <label htmlFor="" style={{marginLeft:'10px'}}><b>{file.name && file.name.split('.')[0].length>10?file.name.substring(0, 9)+"..."+file.name.split('.')[1]: file.name}</b></label>
+                            {/* <label htmlFor="">{file.name && file.name}</label> */}
                         </div>
                         <Box sx={{display:'flex', alignItems:'center', justifyContent:"center", marginTop:'20px'}}>
                             <div>
