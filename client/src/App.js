@@ -47,6 +47,7 @@ function App() {
           .then((data)=>{
             try {
                 setName(data.payload.name)
+                localStorage.setItem('id', data.payload._id)
             } catch {}
         })
         })
@@ -91,8 +92,8 @@ function App() {
                 <Route path="/register" element={<Register showAlert={showAlert}/>}></Route>
                 <Route path="/myPosts/:id" element={<PostDetail/>}></Route>
                 <Route path="/addPost" element={<AddPost showAlert={showAlert}/>}></Route>
-                <Route path="/post" element={<Posts user={false}/>}></Route>
-                <Route path="/userPost" element={<Posts user={true}/>}></Route>
+                <Route path="/post" element={<Posts user={false} showAlert={showAlert}/>}></Route>
+                <Route path="/userPost" element={<Posts user={true} showAlert={showAlert}/>}></Route>
             </Routes>
         </main>
         </div>

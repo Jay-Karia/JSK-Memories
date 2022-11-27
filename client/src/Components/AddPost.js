@@ -68,17 +68,28 @@ const AddPost = (props) => {
         e.preventDefault();
         
         // Update the formData object
-        const formData = new FormData();
+        // const formData = new FormData();
      
         // Update the formData object
-        formData.append(
-          "file",
-          file,
-          file.name
-        );
-        
-        axios.post('http://localhost:8000/addPost', formData)
-        // .then(res=>res.json())
+        // formData.append(
+        //   "file",
+        //   file,
+        //   file.name
+        // );
+
+        fetch('http://localhost:8000/addPost', {
+            method:"POST",
+            headers: {
+                'Content-type': 'application/json',
+                'x-access-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+            title: title,
+            description: desc,
+            image: file,
+            user: user,
+            date: value})
+        }).then(res=>res.json())
         .then((data)=> {
             if (data.status==='ok') {
                 props.showAlert(data.msg, 'success')
