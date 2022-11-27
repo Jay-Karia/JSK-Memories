@@ -31,41 +31,37 @@ router.get('/getAllPosts', async(req, res) => {
         posts = await Post.find().populate('user')
         // return res.status(200).json({ yourPosts: posts })
     } catch (err) {
-        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:'error' })
     }
     if (posts.length !== 0) {
-        return res.status(200).json({ posts: posts })
+        return res.status(200).json({ posts: posts, status:'ok' })
     } else {
-        return res.status(400).json({ msg: 'No posts found' })
+        return res.status(400).json({ msg: 'No posts found' , status:'error'})
     }
 })
 
 // localhost:8000/addPost
-router.post('/addPost', upload.single('file'), async(req, res) => {
+router.post('/addPost', verifyJWT, async(req, res) => {
     const post = req.body
-
-    // post.image = image_name
 
     let existingUser;
     try {
         existingUser = await User.findById(post.user)
+        const newPost = new Post(post)
+    
+        const session = await mongoose.startSession()
+        session.startTransaction()
+        await newPost.save({ session })
+        existingUser.posts.push(newPost._id)
+        await existingUser.save({ session })
+        await session.commitTransaction()
+        if (!existingUser) 
+            return res.status(400).json({ msg: 'Login to use this feature' , status:'error'})
+        return res.status(200).json({ msg: 'Successfully created a new post', posts: post, status:'ok' })
+    
     } catch (err) {
         return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err, status:'error' })
     }
-    if (!existingUser) {
-        return res.status(200).json({ msg: 'Login to use this feature' , status:'error'})
-    }
-    const newPost = new Post(post)
-    console.log(req.file)
-
-    // const session = await mongoose.startSession()
-    // session.startTransaction()
-    // await newPost.save({ session })
-    // existingUser.posts.push(newPost._id)
-    // await existingUser.save({ session })
-    // await session.commitTransaction()
-
-    return res.status(200).json({ msg: 'Successfully created a new post', post: post, status:'ok' })
 })
 
 // localhost:8000/updatePost/id
@@ -113,13 +109,13 @@ router.delete('/deletePost/:id', async(req, res) => {
         const post_ = await Post.findByIdAndDelete(id)
 
         if (existingPost.length === 0) {
-            if (!existingPost) return res.status(400).json({ msg: 'Could not find post' })
+            if (!existingPost) return res.status(400).json({ msg: 'Could not find post', status:'error' })
         }
     } catch (err) {
-        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err })
+        return res.status(500).json({ msg: 'Sorry! Some internal server error', error: err , status:'error'})
     }
 
-    return res.status(200).json({ msg: 'Post Successfully deleted' })
+    return res.status(200).json({ msg: 'Post Successfully deleted', status:'ok' })
 })
 
 module.exports = router;
